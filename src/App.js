@@ -1,5 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
+import Hello from './components/Hello/Hello';
+import Login from './components/Login/login';
 import {
   BrowserRouter as Router,
   Switch,
@@ -22,6 +23,9 @@ function App() {
           <li>
             <Link to="/exit">Exit</Link>
           </li>
+          <li>
+            <Link to="/login">Login</Link>
+          </li>
 
         </ul>
       </div>
@@ -38,6 +42,10 @@ function App() {
           <Goodbye></Goodbye>
         </Route>
 
+        <Route path='/login'>
+          <Login></Login>
+        </Route>
+
         <Route path="/">
           <p>Home</p>
         </Route>
@@ -49,11 +57,7 @@ function App() {
 }
 
 /* The following components are for testing purposes only. They are placeholders. */
-function Hello() {
-  return (
-    <p>Hello!</p>
-  )
-}
+
 
 function Goodbye() {
   return (
