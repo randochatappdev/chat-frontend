@@ -3,3 +3,8 @@
 body {
     font-family: 'Sarabun', sans-serif;
 }
+
+form {
+    display: flex;
+    flex-direction: column;
+}
