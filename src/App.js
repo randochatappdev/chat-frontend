@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import Chat from "./components/chat-ui/chat"
 import {
   BrowserRouter as Router,
   Switch,
@@ -14,13 +15,16 @@ function App() {
       <div>
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/home">Home</Link>
           </li>
           <li>
             <Link to="/welcome">Welcome</Link>
           </li>
           <li>
             <Link to="/exit">Exit</Link>
+          </li>
+          <li>
+            <Link to="/chat">Chat</Link>
           </li>
 
         </ul>
@@ -38,8 +42,12 @@ function App() {
           <Goodbye></Goodbye>
         </Route>
 
-        <Route path="/">
+        <Route path="/home">
           <p>Home</p>
+        </Route>
+
+        <Route path="/chat">
+          <Chat></Chat>
         </Route>
 
 
@@ -55,12 +63,12 @@ function Hello() {
   )
 }
 
+
 function Goodbye() {
   return (
     <p>Bye!</p>
   )
 }
-
 
 
 export default App;

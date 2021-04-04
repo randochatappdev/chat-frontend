@@ -1,0 +1,70 @@
+
+body {
+    font-family: sans-serif;
+    margin: 0;
+    
+}
+
+.up {
+    height: 500px;
+    width: 25%;
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+}
+
+.up h1 {
+    text-align: center;
+}
+
+.up text {
+    align-items: baseline;
+}
+
+
+.name {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.name h2 {
+    margin: 0;
+}
+
+.content {
+    margin: 20px;
+}
+
+.content .send {
+    text-align: left;
+    border:2px solid DodgerBlue;
+    margin-right: 115px;
+    background-color:dodgerblue ;
+    border-radius: 8px;
+
+}
+
+ .content .reply {
+    text-align: right;
+    border:2px solid violet;
+    margin-left: 130px;
+    background-color: violet;
+    border-radius: 8px;
+}
+
+
+.text {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    
+}
+
+
+
+
+
+
+
