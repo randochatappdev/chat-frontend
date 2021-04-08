@@ -9,26 +9,27 @@ import './chat.css';
 function Chat() {
     return (
         
-        <div class="up">
+        <div className="wrapper">
             <h1>Chat ui</h1>
-                <div class="name">
+                <div className="name">
                     <ArrowBackIosIcon />
                     <AccountCircleIcon />
                     <h2>Henry VIII</h2>
                     <SettingsIcon />
                 </div>
 
-                <div class="content">
-                    <h3 class="send">That's dope ahahah</h3>
+                <div className="content">
+                    <h3 class="send">That's dope haha</h3>
                     <h3 class="reply">Nope. That's weird</h3>
-                    <h3 class="send">That's dope ahahah</h3>
-                
+                    <h3 class="send">Well, you're right hahaha</h3>
+                    <h3 class="reply">Here, another one</h3>
+                    <h3 class="send">Now, that's a weird one</h3>
 
                 </div>
     
        
 
-                <div class="text">
+                <div className="text">
                     <CallIcon />
                     <form noValidate autoComplete="off">
                     <TextField id="outlined" label="Type your message here" variant="outlined" />
