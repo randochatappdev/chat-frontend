@@ -19,11 +19,11 @@ function Chat() {
                 </div>
 
                 <div className="content">
-                    <h3 className="send">That's dope haha</h3>
-                    <h3 className="reply">Nope. That's weird</h3>
-                    <h3 className="send">Well, you're right hahaha</h3>
-                    <h3 className="reply">Here, another one</h3>
-                    <h3 className="send">Now, that's a weird one</h3>
+                    <p className="send">That's dope haha</p>
+                    <p className="reply">Nope. That's weird</p>
+                    <p className="send">Well, you're right hahaha</p>
+                    <p className="reply">Here, another one</p>
+                    <p className="send">Now, that's a weird one</p>
 
                 </div>
     

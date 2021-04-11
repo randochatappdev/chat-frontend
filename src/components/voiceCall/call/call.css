@@ -61,11 +61,13 @@ body {
     background-color: red;
     font-size: 45px;
     border-radius: 80px;
+    padding: 5px;
 }
 .bot-content .off{
     background-color: darkgrey;
     font-size: 45px;
     border-radius: 80px;
+    padding: 5px;
 }
 
 

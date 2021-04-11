@@ -42,20 +42,21 @@ body {
 
 .content {
     margin: 20px;
+    color: white;
 }
 
 .content .send {
     text-align: left;
-    border:2px solid DodgerBlue;
+    border: 15px solid DodgerBlue;
     margin-right: 115px;
     background-color:dodgerblue ;
     border-radius: 8px;
 
 }
 
- .content .reply {
+.content .reply {
     text-align: right;
-    border:2px solid violet;
+    border: 15px solid violet;
     margin-left: 160px;
     background-color: violet;
     border-radius: 8px;
