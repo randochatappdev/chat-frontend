@@ -1,16 +1,15 @@
-import TextField from '@material-ui/core/TextField';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import SettingsIcon from '@material-ui/icons/Settings';
-import CallIcon from '@material-ui/icons/Call';
-import SendIcon from '@material-ui/icons/Send';
-import './chat.css';
+import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
+import Button from '@material-ui/core/Button';
+import './join.css';
 
-function Chat() {
+function Join() {
     return (
         
         <div className="wrapper">
-            <h1>Chat ui</h1>
+            <h1>Join ui</h1>
                 <div className="name">
                     <ArrowBackIosIcon className="up-icon"/>
                     <AccountCircleIcon className="up-icon"/>
@@ -23,23 +22,27 @@ function Chat() {
                     <h3 className="reply">Nope. That's weird</h3>
                     <h3 className="send">Well, you're right hahaha</h3>
                     <h3 className="reply">Here, another one</h3>
-                    <h3 className="send">Now, that's a weird one</h3>
+                    <h3 className="send">Now, that's a weird one</h3> 
 
                 </div>
     
        
 
-                <div className="text">
-                    <CallIcon className="bot-icon"/>
-                    <form noValidate autoComplete="off">
-                    <TextField id="outlined" label="Type your message here" variant="outlined" />
-                    </form>
-                    <SendIcon className="bot-icon"/>
+                <div className="join-room">
+                    <div className="notif-join">
+                        <NotificationsActiveIcon />
+                        <p>Do you want to join this room?</p>
                     </div>
+                    <div className="button">
+                    <Button variant="contained" color="secondary">NO</Button>
+                    <Button className="join" variant="contained" color="primary">YES, JOIN</Button>
+                    </div>
+
+                </div>
                 
         </div>
     )
   }
 
 
-  export default Chat;
+  export default Join;

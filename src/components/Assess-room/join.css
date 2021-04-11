@@ -39,7 +39,6 @@ body {
     font-size: 35px;
 }
 
-
 .content {
     margin: 20px;
 }
@@ -61,16 +60,27 @@ body {
     border-radius: 8px;
 }
 
+.join-room {
+    margin-top: auto;
+    background-color: violet;
+    border-radius: 8px;
+    
+}
 
-.text {
+.notif-join {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-evenly;
-    margin-top: auto;
+    justify-content: center;
 }
-.text .bot-icon {
-    font-size: 40px;
+
+.button {
+    text-align: center;
+    margin: 15px 0 35px;
+}
+
+.button .join {
+    margin-left: 25px;
 }
 
 
