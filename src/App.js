@@ -1,6 +1,9 @@
+import logo from './logo.svg';
 import './App.css';
-import Hello from './components/Hello/Hello';
-import Login from './components/Login/login';
+import Chat from "./components/chat-ui/chat"
+import Join from "./components/Assess-room/join"
+import Call from "./components/voiceCall/call/call"
+import End from "./components/voiceCall/end/end"
 import {
   BrowserRouter as Router,
   Switch,
@@ -15,16 +18,28 @@ function App() {
       <div>
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/home">Home</Link>
           </li>
+
           <li>
             <Link to="/welcome">Welcome</Link>
           </li>
+
           <li>
             <Link to="/exit">Exit</Link>
           </li>
+
           <li>
-            <Link to="/login">Login</Link>
+            <Link to="/chat">Chat</Link>
+          </li>
+
+          <li>
+            <Link to="/join">Join</Link>
+          </li>
+
+          <li>
+            <Link to="/call">(Call) </Link>
+            <Link to="/end"> (End)</Link>
           </li>
 
         </ul>
@@ -42,12 +57,24 @@ function App() {
           <Goodbye></Goodbye>
         </Route>
 
-        <Route path='/login'>
-          <Login></Login>
+        <Route path="/home">
+          <p>Home</p>
         </Route>
 
-        <Route path="/">
-          <p>Home</p>
+        <Route path="/chat">
+          <Chat></Chat>
+        </Route>
+
+        <Route path="/join">
+          <Join></Join>
+        </Route>
+
+        <Route path="/call">
+          <Call></Call>
+        </Route>
+
+        <Route path="/end">
+          <End></End>
         </Route>
 
 
@@ -57,6 +84,11 @@ function App() {
 }
 
 /* The following components are for testing purposes only. They are placeholders. */
+function Hello() {
+  return (
+    <p>Hello!</p>
+  )
+}
 
 
 function Goodbye() {
@@ -64,7 +96,6 @@ function Goodbye() {
     <p>Bye!</p>
   )
 }
-
 
 
 export default App;
