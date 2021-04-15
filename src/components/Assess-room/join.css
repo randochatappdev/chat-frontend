@@ -1,0 +1,113 @@
+
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    
+}
+/*Moblie L 425px */
+.wrapper {
+    height: 100vh;
+    width: 80%;
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.wrapper h1 {
+    text-align: center;
+}
+
+.wrapper text {
+    align-items: baseline;
+}
+
+
+.name {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.name h2 {
+    margin: 0;
+    padding: 0;
+    font-size: 35px;
+}
+.name .up-icon {
+    font-size: 35px;
+}
+
+.content {
+    margin: 20px;
+    color: white;
+}
+
+.content .send {
+    text-align: left;
+    border: 15px solid DodgerBlue;
+    margin-right: 115px;
+    background-color:dodgerblue ;
+    border-radius: 8px;
+
+}
+
+ .content .reply {
+    text-align: right;
+    border: 15px solid violet;
+    margin-left: 160px;
+    background-color: violet;
+    border-radius: 8px;
+}
+
+.join-room {
+    margin-top: auto;
+    background-color: violet;
+    border-radius: 8px;
+    color: white;
+    
+}
+
+.join-room .notif {
+    color: white;
+}
+
+.notif-join {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.button {
+    text-align: center;
+    margin: 15px 0 35px;
+}
+
+.button .join {
+    margin-left: 25px;
+}
+
+
+@media only screen and (min-width: 768px) {
+    .wrapper {
+        width: 50%;
+        margin-left: 25%;
+    }
+
+    .content .reply {
+        margin-left: 160px;
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+    .wrapper {
+        width: 25%;
+        margin: 0 500px 0;
+    }
+}
+
+
+
+
