@@ -3,14 +3,24 @@ import Button from '@material-ui/core/Button';
 import './login.css';
 function Login() {
     return (
-        <div>
-            <h1>rando</h1>
-            <form validate autoComplete="off">
+        <div className="login-container">
+            <h1 className="logo">rando</h1>
+            <form autoComplete="off">
 
-                <TextField id="outlined-basic" label="Email" variant="outlined" />
-                <TextField id="outlined-basic" label="Password" variant="outlined" />
-                <Button variant="contained" color="primary">
-                    Primary</Button>
+                <div className="text-fields">
+                    <TextField id="outlined-basic" label="Email" variant="outlined" className="text-field" />
+                    <TextField id="outlined-basic" label="Password" variant="outlined" className="text-field" />
+                </div>
+
+                <div className="buttons">
+                    <Button variant="contained" color="primary" className="button">
+                        Log in</Button>
+
+                    <p>OR</p>
+                    <Button variant="outlined" color="secondary" className="button">
+                        Register</Button>
+                </div>
+
 
             </form>
         </div>
