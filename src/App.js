@@ -41,13 +41,12 @@ function App() {
             <Link to="/call">(Call) </Link>
             <Link to="/end"> (End)</Link>
           </li>
-
+        
         </ul>
       </div>
 
 
       <Switch>
-
 
         <Route path="/welcome">
           <Hello></Hello>
@@ -76,7 +75,6 @@ function App() {
         <Route path="/end">
           <End></End>
         </Route>
-
 
       </Switch>
     </Router>

@@ -7,9 +7,9 @@ body {
     
 }
 /*Moblie L 425px */
-.wrapper {
+.end-wrapper {
     height: 100vh;
-    width: 80%;
+    width: 100%;
     background-color: whitesmoke;
     display: flex;
     flex-direction: column;
@@ -17,40 +17,38 @@ body {
     
 }
 
-.wrapper h1 {
-    text-align: center;
-}
 
-.wrapper text {
+.end-wrapper text {
     align-items: baseline;
 }
 
 
-.icon {
+.end-icon {
     display: flex;
     flex-direction: column;
     align-items: center;
     font-size: 20px;
+    padding-top: 30px;
 }
 
-.icon h2 {
+.end-icon h2 {
     margin: 0;
-    padding: 0;
+    padding-top: 15px;
 }
-.icon .icon {
+.end-icon .icon {
     font-size: 60px;
 }
 
-.mid-content {
+.end-mid {
     text-align: center;
     margin-top: 100px;
 }
 
-.mid-content h1 {
+.end-mid h1 {
     font-size: 20px;
 }
 
-.end-off {
+.end-content {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -60,16 +58,14 @@ body {
 
 
 @media only screen and (min-width: 768px) {
-    .wrapper {
-        width: 50%;
-        margin-left: 25%;
+    .end-wrapper {
+        width: 100%;
     }
 }
 
 @media only screen and (min-width: 1000px) {
-    .wrapper {
-        width: 25%;
-        margin: 0 500px 0;
+    .end-wrapper {
+        width: 100%;
     }
 }
 
