@@ -4,6 +4,7 @@ import Chat from "./components/chat-ui/chat"
 import Join from "./components/Assess-room/join"
 import Call from "./components/voiceCall/call/call"
 import End from "./components/voiceCall/end/end"
+import Settings from "./components/Settings/Settings"
 import {
   BrowserRouter as Router,
   Switch,
@@ -42,6 +43,10 @@ function App() {
             <Link to="/end"> (End)</Link>
           </li>
 
+          <li>
+            <Link to="/settings">Settings</Link>
+          </li>
+
         </ul>
       </div>
 
@@ -75,6 +80,10 @@ function App() {
 
         <Route path="/end">
           <End></End>
+        </Route>
+
+        <Route path="/settings">
+          <Settings></Settings>
         </Route>
 
 
