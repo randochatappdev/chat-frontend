@@ -24,8 +24,8 @@ body {
 .chat-name {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    padding-top: 30px;
+    padding: 20px 30px 0;
+    justify-content: space-between;
 }
 
 .chat-name h2 {
@@ -33,9 +33,19 @@ body {
     padding: 0;
     font-size: 35px;
 }
-.chat-name .up-icon {
+.chat-name .avatar-icon {
+    font-size: 45px;
+}
+
+.chat-name .back-icon {
     font-size: 35px;
 }
+
+.chat-name .setting-icon {
+    font-size: 35px;
+}
+
+
 
 .helo {
     margin: 10px 30px 0;
@@ -73,10 +83,13 @@ body {
 
 
 .chat-text .call-icons {
-    font-size: 40px;
+    font-size: 30px;
+}
+.chat-text .attach-icons {
+    font-size: 30px;
 }
 .chat-text .send-icons {
-    font-size: 40px;
+    font-size: 30px;
 }
 
 
@@ -84,6 +97,12 @@ body {
 @media only screen and (min-width: 768px) {
     .chat-wrapper {
         width: 100%;
+    }
+    .chat-name h2 {
+        margin: 0 170px 0 0;
+    }
+    .chat-name .avatar-icon {
+        margin: 0 0 0 170px;
     }
     .helo {
         margin-top: 30px;
@@ -100,11 +119,20 @@ body {
     .chat-wrapper {
         width: 100%;
     }
+    .chat-name h2 {
+        margin: 0 350px 0 0;
+    }
+    .chat-name .avatar-icon {
+        margin: 0 0 0 300px;
+    }
     .chat-text .call-icons {
-        font-size: 50px;
+        font-size: 30px;
+    }
+    .chat-text .attach-icons {
+        font-size: 30px;
     }
     .chat-text .send-icons {
-        font-size: 50px;
+        font-size: 30px;
     }
     .helo .send {
         margin-right: 550px;
