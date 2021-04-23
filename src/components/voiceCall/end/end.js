@@ -6,19 +6,18 @@ import './end.css';
 function End() {
     return (
         
-        <div className="wrapper">
-            <h1>EndCall ui</h1>
-                <div className="icon">
+        <div className="end-wrapper">
+                <div className="end-icon">
                     <AccountCircleIcon className="icon"/>
                     <h2>Henry VIII</h2>
                 </div>
 
-                <div className="mid-content">
+                <div className="end-mid">
                     <h1>The Call has ended</h1>
                     <p>07:24</p>
                 </div>
 
-                <div className="end-off">
+                <div className="end-content">
                 <Button variant="contained" color="primary">GO TO ROOM</Button>
                     </div>
                 

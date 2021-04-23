@@ -6,72 +6,69 @@ body {
     
 }
 /*Moblie L 425px */
-.wrapper {
+.join-wrapper {
     height: 100vh;
-    width: 80%;
+    width: 100%;
     background-color: whitesmoke;
     display: flex;
     flex-direction: column;
     margin: auto;
 }
 
-.wrapper h1 {
-    text-align: center;
-}
-
-.wrapper text {
+.join-wrapper text {
     align-items: baseline;
 }
 
 
-.name {
+.join-name {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+    padding-top: 30px;
 }
 
-.name h2 {
+.join-name h2 {
     margin: 0;
     padding: 0;
     font-size: 35px;
 }
-.name .up-icon {
+.join-name .up-icon {
     font-size: 35px;
 }
 
-.content {
-    margin: 20px;
+.hi {
+    margin: 10px 30px 0;
     color: white;
 }
 
-.content .send {
-    text-align: left;
-    border: 15px solid DodgerBlue;
-    margin-right: 115px;
-    background-color:dodgerblue ;
-    border-radius: 8px;
-
+.hi .send {
+    background-color: dodgerblue;
+    display: table;
+    padding: 10px;
+    border-radius: 10px;
+    margin-right: 150px;
+    margin-left: 0;
 }
 
- .content .reply {
-    text-align: right;
-    border: 15px solid violet;
-    margin-left: 160px;
+.hi .reply {
     background-color: violet;
-    border-radius: 8px;
+    display: table;
+    padding: 10px;
+    border-radius: 10px;
+    margin-left: auto;
+    text-align: left;
+    margin-right: 0;
+    max-inline-size: 250px;
 }
 
 .join-room {
     margin-top: auto;
-    background-color: violet;
-    border-radius: 8px;
+    background-color: lightslategrey;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
     color: white;
-    
 }
 
-.join-room .notif {
-    color: white;
-}
 
 .notif-join {
     display: flex;
@@ -91,20 +88,50 @@ body {
 
 
 @media only screen and (min-width: 768px) {
-    .wrapper {
-        width: 50%;
-        margin-left: 25%;
+    .join-wrapper {
+        width: 100%;
     }
 
-    .content .reply {
-        margin-left: 160px;
+    .notif-join {
+        font-size: 15px;
     }
+
+    .notif-join .notif {
+        font-size: 25px;
+        padding-right: 20px;
+    }
+    .hi .send {
+        margin-right: 300px;
+    }
+    .hi .reply {
+        max-inline-size: 400px;
+    }
+    
+
 }
 
 @media only screen and (min-width: 1000px) {
-    .wrapper {
-        width: 25%;
-        margin: 0 500px 0;
+    .join-wrapper {
+        width: 100%;
+    }
+
+    .notif-join {
+        font-size: 20px;
+    }
+
+    .notif-join .notif {
+        font-size: 30px;
+        padding-right: 20px;
+    }
+
+    .button .join {
+        margin-left: 85px;
+    }
+    .hi .send {
+        margin-right: 550px;
+    }
+    .hi .reply {
+        max-inline-size: 750px;
     }
 }
 

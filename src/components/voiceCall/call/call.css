@@ -7,9 +7,9 @@ body {
     
 }
 /*Moblie L 425px */
-.wrapper {
+.call-wrapper {
     height: 100vh;
-    width: 80%;
+    width: 100%;
     background-color: whitesmoke;
     display: flex;
     flex-direction: column;
@@ -17,73 +17,71 @@ body {
     
 }
 
-.wrapper h1 {
-    text-align: center;
-}
 
-.wrapper text {
+.call-wrapper text {
     align-items: baseline;
 }
 
 
-.icon {
+.call-icon {
     display: flex;
     flex-direction: column;
     align-items: center;
     font-size: 20px;
+    padding-top: 30px;
 }
 
-.icon h2 {
+.call-icon h2 {
     margin: 0;
-    padding: 0;
+    padding-top: 15px;
 }
-.icon .icon {
+.call-icon .icon {
     font-size: 60px;
 }
 
-.mid-content {
+.call-mid {
     text-align: center;
     margin-top: 100px;
 }
 
-.mid-content h1 {
+.call-mid h1 {
     font-size: 20px;
 }
 
-.bot-content {
+.call-content {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
-    margin-block: auto;
+    margin-block-start: auto;
+    color: white;
+    padding-bottom: 40px;
 }
-.bot-content .end{
+.call-content .end{
     background-color: red;
     font-size: 45px;
-    border-radius: 80px;
-    padding: 5px;
+    border-radius: 70px;
+    padding: 10px;
 }
-.bot-content .off{
+.call-content .off{
     background-color: darkgrey;
     font-size: 45px;
-    border-radius: 80px;
-    padding: 5px;
+    border-radius: 70px;
+    padding: 10px;
 }
 
 
 @media only screen and (min-width: 768px) {
-    .wrapper {
-        width: 50%;
-        margin-left: 25%;
+    .call-wrapper {
+        width: 100%;
     }
 
 
 }
 
 @media only screen and (min-width: 1000px) {
-    .wrapper {
-        width: 25%;
-        margin: 0 500px 0;
+    .call-wrapper {
+        width: 100%;
     }
 }
 

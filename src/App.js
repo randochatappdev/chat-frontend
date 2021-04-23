@@ -43,16 +43,19 @@ function App() {
             <Link to="/end"> (End)</Link>
           </li>
 
+        
+
+
           <li>
             <Link to="/settings">Settings</Link>
           </li>
+
 
         </ul>
       </div>
 
 
       <Switch>
-
 
         <Route path="/welcome">
           <Hello></Hello>
@@ -82,9 +85,11 @@ function App() {
           <End></End>
         </Route>
 
+
         <Route path="/settings">
           <Settings></Settings>
         </Route>
+
 
 
       </Switch>

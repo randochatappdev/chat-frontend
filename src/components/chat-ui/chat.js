@@ -6,35 +6,33 @@ import CallIcon from '@material-ui/icons/Call';
 import SendIcon from '@material-ui/icons/Send';
 import './chat.css';
 
+
+
 function Chat() {
     return (
         
-        <div className="wrapper">
-            <h1>Chat ui</h1>
-                <div className="name">
+        <div className="chat-wrapper">
+                <div className="chat-name">
                     <ArrowBackIosIcon className="up-icon"/>
                     <AccountCircleIcon className="up-icon"/>
                     <h2>Henry VIII</h2>
                     <SettingsIcon className="up-icon"/>
                 </div>
 
-                <div className="content">
-                    <p className="send">That's dope haha</p>
-                    <p className="reply">Nope. That's weird</p>
+                <span className="helo">
+                    <p className="send">That's dope haha Only by cutting off the connection would she be able to free herself from the beckoning of the Chaos Abyss.Only by cutting off the connection would she be able to free herself from the beckoning of the Chaos Abyss.</p>
+                    <p className="reply">Nope. That's weird Only by cutting off the connection would she be able to free herself from the beckoning of the Chaos Abyss.Only by cutting off the connection would she be able to free herself from the beckoning of the Chaos Abyss.</p>
                     <p className="send">Well, you're right hahaha</p>
-                    <p className="reply">Here, another one</p>
+                    <p className="reply">Here, another one hahahah</p>
                     <p className="send">Now, that's a weird one</p>
-
-                </div>
-    
-       
-
-                <div className="text">
-                    <CallIcon className="bot-icon"/>
-                    <form noValidate autoComplete="off">
-                    <TextField id="outlined" label="Type your message here" variant="outlined" />
+                </span>
+                
+                <div className="chat-text">
+                    <CallIcon className="call-icons"/>
+                    <form>
+                    <TextField id="outlined-basic" label="Type your message here" variant="outlined" />
                     </form>
-                    <SendIcon className="bot-icon"/>
+                    <SendIcon className="send-icons"/>
                     </div>
                 
         </div>

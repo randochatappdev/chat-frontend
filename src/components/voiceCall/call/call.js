@@ -6,21 +6,18 @@ import './call.css';
 function Call() {
     return (
         
-        <div className="wrapper">
-            <h1>Call ui</h1>
-                <div className="icon">
+        <div className="call-wrapper">
+                <div className="call-icon">
                     <AccountCircleIcon className="icon"/>
                     <h2>Henry VIII</h2>
                 </div>
 
-                <div className="mid-content">
+                <div className="call-mid">
                     <h1>Connected</h1>
                     <p>07:24</p>
                 </div>
-    
-       
 
-                <div className="bot-content">
+                <div className="call-content">
                     <CallEndIcon className="end"/>
                     <MicOffIcon className="off"/>
                     </div>
