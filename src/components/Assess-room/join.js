@@ -10,10 +10,10 @@ function Join() {
         
         <div className="join-wrapper">
                 <div className="join-name">
-                    <ArrowBackIosIcon className="up-icon"/>
-                    <AccountCircleIcon className="up-icon"/>
-                    <h2>Henry VIII</h2>
-                    <SettingsIcon className="up-icon"/>
+                <ArrowBackIosIcon className="back-icon" />
+                <AccountCircleIcon className="avatar-icon" />
+                <h2>Henry VIII</h2>
+                <SettingsIcon className="setting-icon" />
                 </div>
 
                 <span className="hi">
