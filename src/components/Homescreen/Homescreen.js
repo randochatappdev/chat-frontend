@@ -17,55 +17,55 @@ import SearchIcon from '@material-ui/icons/Search';
 import SettingsIcon from '@material-ui/icons/Settings';
 
 
-class Homescreen extends React.Component{
+class Homescreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-        users: users,
-        topics: topics,
-        rooms: rooms,
-        messages: messages,     
-    
+            users: users,
+            topics: topics,
+            rooms: rooms,
+            messages: messages,
+
         }
 
-        console.log(users)   
+        console.log(users)
 
     }
     render() {
         console.log(this.state.users);
-       
-            return (
-                <div className="container">
-                    <h1 className="header">Rooms</h1>
 
-                    <List className="list">
-                        {this.state.users.map((user) => 
-                            <ListItem button>
+        return (
+            <div className="container">
+                <h1 className="header">Rooms</h1>
+
+                <List className="list">
+                    {this.state.users.map((user) =>
+                        <ListItem button>
                             <ListItemAvatar>
-                                <Avatar alt={user.alias} src={user.displayPicture}/>
+                                <Avatar alt={user.alias} src={user.displayPicture} />
                             </ListItemAvatar>
                             <ListItemtext
                                 primary={user.alias}
                                 secondary="Hello people to the world"></ListItemtext>
                             <ListItemtext className="time">09:00</ListItemtext>
                         </ListItem>
-                    
-                        )}
 
-                        </List>
-                        
+                    )}
 
-                    <BottomNavigation className="nav"
-                         showLabels
-                       
-                    >
-                         <BottomNavigationAction className="buttonnav" label="Rooms" icon={<RestoreIcon />} />
-                         <BottomNavigationAction className="buttonnav" label="Room Finder" icon={<SearchIcon />} />
-                         <BottomNavigationAction className="buttonnav" label="Settings" icon={<SettingsIcon />} />
-                     </BottomNavigation>
-                </div>
-            )
-        }
+                </List>
+
+
+                <BottomNavigation className="nav"
+                    showLabels
+
+                >
+                    <BottomNavigationAction className="buttonnav" label="Rooms" icon={<RestoreIcon />} />
+                    <BottomNavigationAction className="buttonnav" label="Room Finder" icon={<SearchIcon />} />
+                    <BottomNavigationAction className="buttonnav" label="Settings" icon={<SettingsIcon />} />
+                </BottomNavigation>
+            </div>
+        )
     }
+}
 
-    export default Homescreen;
+export default Homescreen;

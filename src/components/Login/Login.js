@@ -1,8 +1,9 @@
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import './login.css';
+import './Login.css';
 import React from 'react';
 import Hello from '../Hello/Hello';
+import Homescreen from "../Homescreen/Homescreen"
 import {
     BrowserRouter as Router,
     Switch,
@@ -68,6 +69,7 @@ class Login extends React.Component {
 
 
         return postData().then(data => {
+            console.log(data)
             return data;
         }
         ).then(data => {
@@ -99,7 +101,7 @@ class Login extends React.Component {
 
                         <div className="text-fields">
                             <TextField id="outlined-basic" label="Email" variant="outlined" className="text-field" name="email" value={this.state.email} onChange={this.handleInputChange} />
-                            <TextField id="outlined-basic" label="Password" variant="outlined" className="text-field" name="password" value={this.state.password} onChange={this.handleInputChange} />
+                            <TextField id="outlined-basic" type="password" label="Password" variant="outlined" className="text-field" name="password" value={this.state.password} onChange={this.handleInputChange} />
                         </div>
 
                         <div className="buttons">
@@ -117,6 +119,15 @@ class Login extends React.Component {
             )
         }
 
+        else {
+            return (
+
+                <Homescreen />
+            )
+
+
+        }
+
 
     }
 }
@@ -129,7 +140,7 @@ function LoginButton(props) {
             then((data) => {
                 console.log(data)
                 if (data.message == "Success") {
-                    history.push('/hello')
+                    history.push('/home')
                     return
                 }
             })
