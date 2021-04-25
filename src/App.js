@@ -11,89 +11,137 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import { connect, Provider } from 'react-redux';
+import { createStore } from 'redux';
+
+function mapStateToProps(state, ownProps) {
+  const s = state;
+
+  return { count: state }
+}
+
+
+// Action Creator
+var INCREMENT = function (number) {
+  return { type: INCREMENT, payload: number }
+}
+
+var DECREMENT = function (number) {
+  return { type: DECREMENT, payload: number }
+}
+
+// Reducer
+function counter(state, action) {
+  if (typeof state === 'undefined') {
+    state = 0 // If state is undefined, initialize it with a default value
+  }
+
+  switch (action.type) {
+    case 'INCREMENT':
+      return parseInt(state) + action.payload
+    case 'DECREMENT':
+      return state - action.payload
+    default:
+      return state
+  }
+
+}
+
+const store = createStore(counter, [0] + window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+
+store.dispatch({
+  type: 'INCREMENT',
+  payload: 10
+})
+
+
 
 function App() {
   return (
-    <Router>
-      {/* This div is only for testing purposes */}
-      <div>
-        <ul>
-          <li>
-            <Link to="/home">Home</Link>
-          </li>
+    <Provider store={store}>
+      <Router>
+        {/* This div is only for testing purposes */}
+        {console.log(store.getState())}
+        <div>
+          <ul>
+            <li>
+              <Link to="/home">Home</Link>
+            </li>
 
-          <li>
-            <Link to="/welcome">Welcome</Link>
-          </li>
+            <li>
+              <Link to="/welcome">Welcome</Link>
+            </li>
 
-          <li>
-            <Link to="/exit">Exit</Link>
-          </li>
+            <li>
+              <Link to="/exit">Exit</Link>
+            </li>
 
-          <li>
-            <Link to="/chat">Chat</Link>
-          </li>
+            <li>
+              <Link to="/chat">Chat</Link>
+            </li>
 
-          <li>
-            <Link to="/join">Join</Link>
-          </li>
+            <li>
+              <Link to="/join">Join</Link>
+            </li>
 
-          <li>
-            <Link to="/call">(Call) </Link>
-            <Link to="/end"> (End)</Link>
-          </li>
-
-        
-
-
-          <li>
-            <Link to="/settings">Settings</Link>
-          </li>
-
-
-        </ul>
-      </div>
-
-
-      <Switch>
-
-        <Route path="/welcome">
-          <Hello></Hello>
-        </Route>
-
-        <Route path="/exit">
-          <Goodbye></Goodbye>
-        </Route>
-
-        <Route path="/home">
-          <p>Home</p>
-        </Route>
-
-        <Route path="/chat">
-          <Chat></Chat>
-        </Route>
-
-        <Route path="/join">
-          <Join></Join>
-        </Route>
-
-        <Route path="/call">
-          <Call></Call>
-        </Route>
-
-        <Route path="/end">
-          <End></End>
-        </Route>
-
-
-        <Route path="/settings">
-          <Settings></Settings>
-        </Route>
+            <li>
+              <Link to="/call">(Call) </Link>
+              <Link to="/end"> (End)</Link>
+            </li>
 
 
 
-      </Switch>
-    </Router>
+
+            <li>
+              <Link to="/settings">Settings</Link>
+            </li>
+
+
+          </ul>
+        </div>
+
+
+        <Switch>
+
+          <Route path="/welcome">
+            <Hello></Hello>
+          </Route>
+
+          <Route path="/exit">
+            <Goodbye></Goodbye>
+          </Route>
+
+          <Route path="/home">
+            <p>Home</p>
+          </Route>
+
+          <Route path="/chat">
+            <Chat></Chat>
+          </Route>
+
+          <Route path="/join">
+            <Join></Join>
+          </Route>
+
+          <Route path="/call">
+            <Call></Call>
+          </Route>
+
+          <Route path="/end">
+            <End></End>
+          </Route>
+
+
+          <Route path="/settings">
+            <Settings></Settings>
+          </Route>
+
+
+
+        </Switch>
+      </Router>
+    </Provider>
+
   );
 }
 
