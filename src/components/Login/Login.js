@@ -11,6 +11,11 @@ import {
     Link,
     useHistory
 } from "react-router-dom";
+
+
+
+
+
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -75,6 +80,8 @@ class Login extends React.Component {
         ).then(data => {
             if (data.status === "Success") {
                 this.setState({ isLoggedIn: true, token: data.jwt });
+                let localStorage = window.localStorage;
+                localStorage.setItem('jwt', data.jwt)
                 return { message: "Success" }
 
             }

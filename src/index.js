@@ -3,10 +3,20 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import store from './store';
+import actions from './actions';
+import { Provider } from 'react-redux';
+
+
+store.dispatch(actions.INCREMENT(20))
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
