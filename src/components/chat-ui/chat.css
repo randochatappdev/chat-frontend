@@ -39,10 +39,12 @@ body {
 
 .chat-name .back-icon {
     font-size: 35px;
+    cursor: pointer;
 }
 
 .chat-name .setting-icon {
     font-size: 35px;
+    cursor: pointer;
 }
 
 
@@ -84,12 +86,15 @@ body {
 
 .chat-text .call-icons {
     font-size: 30px;
+    cursor: pointer;
 }
 .chat-text .attach-icons {
     font-size: 30px;
+    cursor: pointer;
 }
 .chat-text .send-icons {
     font-size: 30px;
+    cursor: pointer;
 }
 
 

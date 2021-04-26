@@ -38,10 +38,12 @@ body {
 
 .join-name .back-icon {
     font-size: 35px;
+    cursor: pointer;
 }
 
 .join-name .setting-icon {
     font-size: 35px;
+    cursor: pointer;
 }
 
 .hi {
@@ -85,12 +87,12 @@ body {
     justify-content: center;
 }
 
-.button {
+.join-button {
     text-align: center;
     margin: 15px 0 35px;
 }
 
-.button .join {
+.join-button .join {
     margin-left: 25px;
 }
 
@@ -144,7 +146,7 @@ body {
         padding-right: 20px;
     }
 
-    .button .join {
+    .join-button .join {
         margin-left: 85px;
     }
     .hi .send {
