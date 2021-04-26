@@ -1,0 +1,42 @@
+h1{
+
+text-align: left;
+font-family: Sansation Light;
+font-style: normal;
+font-weight: 300;
+font-size: 36px;
+line-height: 21px;
+/* identical to box height, or 58% */
+
+letter-spacing: -0.32px;
+
+color: #000000;
+}
+h2{
+
+    text-align: left;
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 18px;
+line-height: 21px;
+letter-spacing: -0.32px;
+
+color: #979797;
+
+}
+.container{
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction:column;
+    width: 50%;
+    
+}
+#outlined-Email
+{
+ 
+}
+
+
+
