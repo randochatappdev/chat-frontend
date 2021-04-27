@@ -8,7 +8,6 @@ import actions from './actions';
 import { Provider } from 'react-redux';
 
 
-store.dispatch(actions.INCREMENT(20))
 
 
 ReactDOM.render(
