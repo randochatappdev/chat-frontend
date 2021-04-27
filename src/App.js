@@ -3,6 +3,7 @@ import Hello from './components/Hello/Hello';
 import Login from './components/Login/login';
 import Homescreen from './components/Homescreen/Homescreen';
 import CreateRoom from './components/CreateRoom/CreateRoom';
+import CreateTopic from './components/CreateTopic/CreateTopic';
 import {
   BrowserRouter as Router,
   Switch,
@@ -30,6 +31,9 @@ function App() {
             <Link to ="/createRoom">CreateRoom</Link>
           </li>
           <li>
+            <Link to="/createTopic">CreateTopic</Link>
+          </li>
+          <li>
             <Link to="/">Homescreen</Link>
           </li>
           
@@ -55,6 +59,10 @@ function App() {
 
         <Route path="/createRoom">
           <CreateRoom></CreateRoom>
+        </Route>
+
+        <Route path="/createTopic">
+          <CreateTopic></CreateTopic>
         </Route>
 
         <Route path="/">
