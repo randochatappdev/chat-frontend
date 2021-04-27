@@ -2,6 +2,7 @@ import './App.css';
 import Hello from './components/Hello/Hello';
 import Login from './components/Login/login';
 import Homescreen from './components/Homescreen/Homescreen';
+import CreateRoom from './components/CreateRoom/CreateRoom';
 import {
   BrowserRouter as Router,
   Switch,
@@ -26,8 +27,12 @@ function App() {
             <Link to="/login">Login</Link>
           </li>
           <li>
+            <Link to ="/createRoom">CreateRoom</Link>
+          </li>
+          <li>
             <Link to="/">Homescreen</Link>
           </li>
+          
 
         </ul>
       </div>
@@ -48,9 +53,15 @@ function App() {
           <Login></Login>
         </Route>
 
+        <Route path="/createRoom">
+          <CreateRoom></CreateRoom>
+        </Route>
+
         <Route path="/">
           <Homescreen></Homescreen>
         </Route>
+
+      
 
       </Switch>
     </Router>
