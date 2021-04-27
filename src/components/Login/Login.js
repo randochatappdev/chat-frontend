@@ -98,7 +98,11 @@ class Login extends React.Component {
 
                 // Connect to socket.io
                 let alias = this.props.jwt.alias;
-                socket.auth = { alias };
+                let sessionToken = this.props.jwt.jwt.slice(7);
+                console.log(sessionToken, alias)
+                socket.auth = { sessionToken, alias }
+                console.log("token", socket.auth.sessionToken)
+                //socket.auth = { alias };
                 socket.connect();
 
 

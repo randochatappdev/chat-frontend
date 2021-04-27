@@ -85,8 +85,20 @@ class Homescreen extends React.Component {
         try {
             const newData = await data.json();
             this.setState({ rooms: newData })
+
+
+            // Create shallow copy of data
+            const newRooms = [...newData];
+            newRooms.forEach((room) => {
+                room.messages = [];
+            })
+            this.props.dispatch(actions.POPULATE_USERS(newRooms))
             this.fetchMessages()
             //console.log(newData)
+            console.log(newRooms)
+
+            socket.emit('join-rooms', newRooms)
+
 
         } catch (error) {
             console.error(error)
@@ -163,18 +175,20 @@ class Homescreen extends React.Component {
 
                     <List className="list">
                         {this.state.rooms.map((room) =>
+                            <Link to={"/chat/" + room._id} onClick={() => this.props.dispatch(actions.CHANGE_USER(room))}>
+                                <ListItem button key={room._id}>
+                                    <ListItemAvatar>
+                                        <Avatar alt={room.name} src={room.groupDisplayPictureLink || "https://picsum.photos/200"} />
+                                    </ListItemAvatar>
+                                    <ListItemtext
+                                        primary={room.name}
+                                        secondary={room.messages}
+                                        className="chat-preview"
+                                    ></ListItemtext>
+                                    <ListItemtext className="time">09:00</ListItemtext>
+                                </ListItem>
+                            </Link>
 
-                            <ListItem button key={room._id}>
-                                <ListItemAvatar>
-                                    <Avatar alt={room.name} src={room.groupDisplayPictureLink || "https://picsum.photos/200"} />
-                                </ListItemAvatar>
-                                <ListItemtext
-                                    primary={room.name}
-                                    secondary={room.messages}
-                                    className="chat-preview"
-                                ></ListItemtext>
-                                <ListItemtext className="time">09:00</ListItemtext>
-                            </ListItem>
 
                         )}
 
@@ -193,7 +207,7 @@ class Homescreen extends React.Component {
                                         secondary="Hello"
                                         className="chat-preview"
                                     ></ListItemtext>
-                                    <ListItemtext className="time">09:00</ListItemtext>
+                                    <ListItemtext className="time">{user.connected}</ListItemtext>
 
                                 </ListItem>
 
@@ -226,6 +240,31 @@ class Homescreen extends React.Component {
                         {this.state.rooms &&
                             <p>You have no rooms associated to your account.</p>}
 
+
+                        {this.props.users &&
+                            <List className="list">
+                                {this.props.users.map((user) =>
+
+                                    <Link to={"/chat/" + user.userID} onClick={() => this.props.dispatch(actions.CHANGE_USER(user))}>
+                                        <ListItem button key={user.userID}>
+                                            <ListItemAvatar>
+                                                <Avatar alt={user.alias} src={"https://picsum.photos/200"} />
+                                            </ListItemAvatar>
+                                            <ListItemtext
+                                                primary={user.alias}
+                                                secondary="Hello"
+                                                className="chat-preview"
+                                            ></ListItemtext>
+                                            <ListItemtext className="time">{user.connected}</ListItemtext>
+
+                                        </ListItem>
+
+                                    </Link>
+
+                                )}
+
+                            </List>
+                        }
                     </div>
 
 

@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import socket from '../../socket';
 import { useState } from 'react';
 import actions from '../../actions';
+import { SettingsInputAntenna } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -41,21 +42,28 @@ function Chat(props) {
 
     function determineIndex() {
 
-        const newUsers = [...props.users];
-        const findUser = (user) => user.userID === props.selectedUser.userID
-        const newUserIndex = newUsers.findIndex(findUser);
+        const newRooms = [...props.users];
+        const findRoom = (room) => room._id === props.selectedUser._id
+        const newUserIndex = newRooms.findIndex(findRoom);
         return newUserIndex;
 
+    }
+
+    function findUser() {
+        const newRooms = [...props.users];
+        //const findUser = (user) => user.userID === props.selectedUser.userID
+        const newRoom = newRooms.find((user) => user.userID === props.selectedUser.userID);
+        return newRoom;
     }
     function onMessage(event) {
         event.preventDefault();
         console.log(textInput)
         if (props.selectedUser) {
-            socket.emit("private message", {
+            socket.emit("room message", {
                 content: textInput,
-                to: props.selectedUser.userID,
+                to: props.selectedUser._id,
             });
-            console.log(textInput, props.selectedUser.userID)
+            console.log(textInput, props.selectedUser._id)
             /*this.selectedUser.messages.push({
                 content,
                 fromSelf: true,
@@ -66,23 +74,23 @@ function Chat(props) {
 
 
         // Part 2 Use map/for to create new Array with messages (match the user id)
-        const newUsers = [...props.users];
-        const findUser = (user) => user.userID === props.selectedUser.userID
-        const newUserIndex = newUsers.findIndex(findUser);
-        const newUser = newUsers.find(user => user.userID === props.selectedUser.userID);
+        const newRooms = [...props.users];
+        const findRoom = (room) => room._id === props.selectedUser._id;
+        const newRoomIndex = newRooms.findIndex(findRoom);
+        const newRoom = newRooms.find(room => room._id === props.selectedUser._id);
         //console.log(newUser)
-        newUser.messages.push({ content: textInput, self: true })
-        newUsers[newUserIndex] = newUser;
-        setIndex(newUserIndex);
+        newRoom.messages.push({ content: textInput, self: true })
+        newRooms[newRoomIndex] = newRoom;
+        setIndex(newRoomIndex);
 
 
-        props.dispatch(actions.POPULATE_USERS(newUsers))
+        props.dispatch(actions.POPULATE_USERS(newRooms))
+        setText("");
     }
 
 
     const classes = useStyles();
     console.log(props.users)
-    console.log(props.users[userIndex].messages)
 
     return (
 
@@ -90,12 +98,12 @@ function Chat(props) {
             <div className="chat-name">
                 <ArrowBackIosIcon className="back-icon" />
                 <AccountCircleIcon className="avatar-icon" />
-                <h2>{props.selectedUser.alias}</h2>
+                <h2>{props.selectedUser.name}</h2>
                 <SettingsIcon className="setting-icon" />
             </div>
 
 
-
+            {console.log(props.users)}
             <span className="helo">
                 {props.users[userIndex].messages.map((message, index) => (
                     console.log(message),

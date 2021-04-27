@@ -43,8 +43,32 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    socket.on("users", (users) => {
-      console.log("hello")
+    const sessionToken = localStorage.getItem("sessionToken");
+    if (sessionToken) {
+      socket.auth = { sessionToken };
+      socket.connect();
+    }
+
+
+
+    // Listener for session details
+    socket.on("session", ({ sessionToken, userID, alias }) => {
+      // Attach the sessionToken to the next reconnection attempts
+      socket.auth = { sessionToken };
+
+      // Store in localStorage
+      localStorage.setItem("sessionToken", sessionToken)
+
+      // Save the ID of the user
+      socket.userID = userID;
+      socket.alias = alias;
+
+      console.log(userID)
+      console.log(socket.userID)
+    })
+
+    /*socket.on("users", (users) => {
+      console.log(users)
       users.forEach((user) => {
         user.self = user.userID === socket.id;
       });
@@ -62,12 +86,13 @@ class App extends React.Component {
       this.props.dispatch(actions.POPULATE_USERS([...userList]))
       console.log("state", this.props.users)
 
-    });
+    });*/
 
 
 
     socket.on("user connected", (user) => {
-      this.props.dispatch(actions.PUSH_USER(user));
+      console.log(user)
+      //this.props.dispatch(actions.PUSH_USER(user));
     });
 
     socket.on("private message", ({ content, from }) => {
@@ -100,6 +125,71 @@ class App extends React.Component {
       console.log(this.props.users)
     });
 
+    socket.on("room message", ({ content, from }) => {
+      this.setState({ nyeam: "yum" });
+      console.log(content)
+      const newUsers = [...this.props.users];
+      console.log(newUsers)
+      for (let i = 0; i < this.props.users.length; i++) {
+
+
+        if (!newUsers[i].messages) {
+          console.log("Empty lol")
+          newUsers[i].messages = []
+        }
+        console.log(typeof newUsers[i].messages)
+        if (newUsers[i].userID === from) {
+          newUsers[i].messages.push({
+            content,
+            fromSelf: false,
+          });
+          if (newUsers[i] !== this.selectedUser) {
+            newUsers[i].hasNewMessages = true;
+          }
+          console.log(newUsers[i])
+
+
+        }
+      }
+      console.log(newUsers)
+
+      this.props.dispatch(actions.POPULATE_USERS(newUsers))
+      console.log(this.props.users)
+    });
+
+    socket.on("connect", () => {
+      // Shallow copy user state
+      const usersCopy = [...this.props.users]
+
+      usersCopy.forEach((user) => {
+        if (user.self) {
+          user.connected = true;
+        }
+      });
+
+      this.props.dispatch(actions.POPULATE_USERS(usersCopy))
+    });
+
+    socket.on("disconnect", () => {
+      // Shallow copy user state
+      const usersCopy = [...this.props.users]
+
+      usersCopy.forEach((user) => {
+        if (user.self) {
+          user.connected = false;
+        }
+      });
+      this.props.dispatch(actions.POPULATE_USERS(usersCopy))
+
+
+    });
+
+
+
+  }
+
+  componentWillUnmount() {
+    socket.removeAllListeners();
   }
 
   render() {
