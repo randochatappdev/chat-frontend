@@ -36,10 +36,11 @@ function mapStateToProps(state) {
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { users: [], nyeam: "" }
+    this.state = { users: [], nyeam: "", isLoggedIn: false }
 
     this.onLogout = this.onLogout.bind(this);
     this.fetchUsers = this.fetchUsers.bind(this);
+    this.fetchSelf = this.fetchSelf.bind(this);
 
   }
 
@@ -57,11 +58,13 @@ class App extends React.Component {
 
     try {
       const newData = await data.json();
+      console.log(newData)
       this.setState({ rooms: newData })
 
 
       // Create shallow copy of data
       const newRooms = [...newData];
+      console.log(newRooms)
 
       newRooms.forEach((room) => {
 
@@ -80,6 +83,7 @@ class App extends React.Component {
       //this.fetchMessages()
       //console.log(newData)
       console.log(newRooms)
+      console.log("Went through here")
 
       socket.emit('join-rooms', newRooms)
 
@@ -89,9 +93,34 @@ class App extends React.Component {
     }
   }
 
+  async fetchSelf() {
+    const data = await fetch('http://localhost:4000/api/user', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': localStorage.getItem('jwt')
+
+
+      }
+    });
+
+    try {
+      const newData = await data.json();
+      console.log(newData)
+      this.props.dispatch(actions.SET_USER(newData[0]))
+
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+
+
   componentDidMount() {
     let localStorage = window.localStorage;
     let session = localStorage.getItem("sessionToken");
+    this.setState({ isLoggedIn: true })
 
 
 
@@ -103,6 +132,7 @@ class App extends React.Component {
         socket.connect();
       }
     }
+
 
     this.fetchUsers();
 
@@ -183,36 +213,19 @@ class App extends React.Component {
       console.log(this.props.users)
     });
 
-    socket.on("room message", ({ content, from }) => {
-      this.setState({ nyeam: "yum" });
-      console.log(content)
-      const newUsers = [...this.props.users];
-      console.log(newUsers)
-      for (let i = 0; i < this.props.users.length; i++) {
+    socket.on("room message", ({ content, from, room }) => {
+      const newRooms = [...this.props.users];
+      const findRoom = (roome) => roome._id === room;
+      const newRoomIndex = newRooms.findIndex(findRoom);
+      const newRoom = newRooms.find(roome => roome._id === room);
+      console.log(newRoom)
+      //console.log(newUser)
+      newRoom.messages.push({ sender: from, content: { contentType: "String", body: content } })
+      newRooms[newRoomIndex] = newRoom;
+
+      this.props.dispatch(actions.POPULATE_USERS(newRooms))
 
 
-        if (!newUsers[i].messages) {
-          console.log("Empty lol")
-          newUsers[i].messages = []
-        }
-        console.log(typeof newUsers[i].messages)
-        if (newUsers[i].userID === from) {
-          newUsers[i].messages.push({
-            content,
-            fromSelf: false,
-          });
-          if (newUsers[i] !== this.selectedUser) {
-            newUsers[i].hasNewMessages = true;
-          }
-          console.log(newUsers[i])
-
-
-        }
-      }
-      console.log(newUsers)
-
-      this.props.dispatch(actions.POPULATE_USERS(newUsers))
-      console.log(this.props.users)
     });
 
     socket.on("connect", () => {
@@ -229,7 +242,7 @@ class App extends React.Component {
     });
 
     socket.on("disconnect", () => {
-      // Shallow copy user state
+      /* Shallow copy user state
       const usersCopy = [...this.props.users]
 
       usersCopy.forEach((user) => {
@@ -238,11 +251,20 @@ class App extends React.Component {
         }
       });
       this.props.dispatch(actions.POPULATE_USERS(usersCopy))
+      */
+      console.log("Oh noe")
+      socket.connect()
 
 
     });
 
 
+
+  }
+
+  componentDidUpdate() {
+    if (this.state.isLoggedIn)
+      this.fetchSelf();
 
   }
 

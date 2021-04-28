@@ -84,7 +84,7 @@ class Homescreen extends React.Component {
 
         try {
             const newData = await data.json();
-            this.setState({ rooms: newData })
+
 
 
             // Create shallow copy of data
@@ -104,9 +104,6 @@ class Homescreen extends React.Component {
                 this.props.dispatch(actions.POPULATE_USERS(newRooms))
 
             }
-            this.fetchMessages()
-            //console.log(newData)
-            console.log(newRooms)
 
             socket.emit('join-rooms', newRooms)
 
@@ -116,39 +113,12 @@ class Homescreen extends React.Component {
         }
     }
 
-    async fetchMessages() {
-        const roomArray = this.state.rooms.slice(0, 5);
 
-        roomArray.forEach((room, index) => {
-            let previousState = this.state;
-            //console.log(room._id)
-
-
-
-
-
-
-            let rooms = [...previousState.rooms]
-            //console.log(rooms);
-            let roomItem = { ...rooms[index] }
-            roomItem.messages = "Hello";
-            rooms[index] = roomItem;
-            //console.log(rooms[index])
-            //console.log(rooms)
-
-            this.setState({ rooms: rooms, isLoading: false })
-
-
-
-
-
-
-        })
-    }
 
 
     componentDidMount() {
         this.fetchUsers();
+        this.props.dispatch(actions.CHANGE_USER(null))
         socket.on("users", (users) => {
             users.forEach((user) => {
                 user.self = user.userID === socket.id;
@@ -176,24 +146,21 @@ class Homescreen extends React.Component {
 
 
     render() {
-        if (this.state.isLoggedIn && !this.state.isLoading && this.props.users) {
-            { console.log(this.state.users) }
-            { console.log(this.props.users) }
-
+        if (this.props.users && this.props.users.length > 0) {
             return (
                 < div className="container" >
                     <h1 className="header">Rooms</h1>
 
                     <List className="list">
-                        {this.state.rooms.map((room) =>
-                            <Link to={"/chat/" + room._id} key={room._id} onClick={() => this.props.dispatch(actions.CHANGE_USER(room))} >
+                        {this.props.users.map((room) =>
+                            <Link to={"/chat/" + room._id} key={room._id}  >
                                 <ListItem button>
                                     <ListItemAvatar>
                                         <Avatar alt={room.name} src={room.groupDisplayPictureLink || "https://picsum.photos/200"} />
                                     </ListItemAvatar>
                                     <ListItemtext
                                         primary={room.name}
-                                        secondary={room.messages}
+                                        secondary={"Hello"}
                                         className="chat-preview"
                                     ></ListItemtext>
                                     <ListItemtext className="time">09:00</ListItemtext>
