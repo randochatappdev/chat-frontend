@@ -210,13 +210,7 @@ function Chat(props) {
                     <SettingsIcon className="setting-icon" />
                 </div>
 
-                <span className="helo">
-                    <p className="send">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                    <p className="reply">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                    <p className="send">Well, you're right hahaha</p>
-                    <p className="reply">Here, another one hahahah</p>
-                    <p className="send">Now, that's a weird one</p>
-                </span>
+
 
 
 
@@ -241,35 +235,33 @@ function Chat(props) {
 
                 < div className="chat-text">
                     <CallIcon className="call-icons" />
-                    <AttachFileIcon className="attach-icons" />
+                    <AttachFileIcon className="attach-icons" onClick={() => setOpen(true)} />
+
                     <form onSubmit={onMessage}>
                         <TextField className={clsx(classes.textField)} id="outlined-basic" value={textInput} onChange={handleTextInputChange} label="Type your message here" variant="outlined" />
 
-
-                        <div>
-                            <AttachFileIcon className="attach-icons" onClick={() => setOpen(true)} />
-                            <DropzoneDialog
-                                acceptedFiles={['image/*']}
-                                cancelButtonText={"cancel"}
-                                submitButtonText={"submit"}
-                                maxFileSize={5000000}
-                                open={open}
-                                onClose={() => setOpen(false)}
-                                onSave={(files) => {
-                                    console.log('Files:', files);
-                                    setOpen(false);
-                                }}
-                                showPreviews={true}
-                                showFileNamesInPreview={true}
-                            />
-                        </div>
-
-                        <form>
-                            <TextField className={clsx(classes.textField)} id="outlined-basic" label="Type your message here" variant="outlined" />
-                        </form>
-                        <SendIcon button className="send-icons" onClick={onMessage} />
-
                     </form>
+
+                    <DropzoneDialog
+                        acceptedFiles={['image/*']}
+                        cancelButtonText={"cancel"}
+                        submitButtonText={"submit"}
+                        maxFileSize={5000000}
+                        open={open}
+                        onClose={() => setOpen(false)}
+                        onSave={(files) => {
+                            console.log('Files:', files);
+                            setOpen(false);
+                        }}
+                        showPreviews={true}
+                        showFileNamesInPreview={true}
+                    />
+
+
+
+                    <SendIcon button className="send-icons" onClick={onMessage} />
+
+
                 </ div>
             </div>
         </div>
