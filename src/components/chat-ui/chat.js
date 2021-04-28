@@ -15,6 +15,8 @@ import { useState, useEffect } from 'react';
 import actions from '../../actions';
 import { SettingsInputAntenna } from '@material-ui/icons';
 import { useParams } from 'react-router-dom';
+import { DropzoneDialog } from 'material-ui-dropzone';
+import React from "react";
 
 const useStyles = makeStyles((theme) => ({
 
@@ -193,53 +195,90 @@ function Chat(props) {
     //console.log(props.users.length)
     //console.log("index", userIndex)
 
+    const [open, setOpen] = React.useState(false);
     return (
 
+        <div>
+            <div className="chat-wrapper">
+                <div className="chat-name">
+                    <ArrowBackIosIcon className="back-icon" />
+                    <AccountCircleIcon className="avatar-icon" />
+                    {props.selectedUser &&
+                        <h2>{props.selectedUser.name}</h2>
 
-        <div className="chat-wrapper">
-            <div className="chat-name">
-                <ArrowBackIosIcon className="back-icon" />
-                <AccountCircleIcon className="avatar-icon" />
-                {props.selectedUser &&
-                    <h2>{props.selectedUser.name}</h2>
+                    }
+                    <SettingsIcon className="setting-icon" />
+                </div>
 
-                }
-                <SettingsIcon className="setting-icon" />
-            </div>
-
-
-
-
-
-            {
-                props.selectedUser && userIndex > -1 && props.users[userIndex].messages.length > 0 && props.currentUser &&
-                < span className="helo">
-                    {props.users[userIndex].messages.map((message, index) => (
-                        //console.log(message.content.body),
-                        //console.log(message.sender, props.currentUser.alias),
-
-                        message.sender == props.currentUser.alias
-                            ? <p className="send" key={index}>{message.content.body}</p>
-                            : <p className="reply" key={index}>{message.content.body}</p>
-                    ))}
-
+                <span className="helo">
+                    <p className="send">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                    <p className="reply">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                    <p className="send">Well, you're right hahaha</p>
+                    <p className="reply">Here, another one hahahah</p>
+                    <p className="send">Now, that's a weird one</p>
                 </span>
-            }
 
 
 
 
-            < div className="chat-text">
-                <CallIcon className="call-icons" />
-                <AttachFileIcon className="attach-icons" />
-                <form onSubmit={onMessage}>
-                    <TextField className={clsx(classes.textField)} id="outlined-basic" value={textInput} onChange={handleTextInputChange} label="Type your message here" variant="outlined" />
+                {
+                    props.selectedUser && userIndex > -1 && props.users[userIndex].messages.length > 0 && props.currentUser &&
+                    < span className="helo">
+                        {props.users[userIndex].messages.map((message, index) => (
+                            //console.log(message.content.body),
+                            //console.log(message.sender, props.currentUser.alias),
 
-                </form>
-                <SendIcon button className="send-icons" onClick={onMessage} />
+                            message.sender == props.currentUser.alias
+                                ? <p className="send" key={index}>{message.content.body}</p>
+                                : <p className="reply" key={index}>{message.content.body}</p>
+                        ))}
+
+                    </span>
+                }
+
+
+
+
+                < div className="chat-text">
+                    <CallIcon className="call-icons" />
+                    <AttachFileIcon className="attach-icons" />
+                    <form onSubmit={onMessage}>
+                        <TextField className={clsx(classes.textField)} id="outlined-basic" value={textInput} onChange={handleTextInputChange} label="Type your message here" variant="outlined" />
+
+
+                        <div>
+                            <AttachFileIcon className="attach-icons" onClick={() => setOpen(true)} />
+                            <DropzoneDialog
+                                acceptedFiles={['image/*']}
+                                cancelButtonText={"cancel"}
+                                submitButtonText={"submit"}
+                                maxFileSize={5000000}
+                                open={open}
+                                onClose={() => setOpen(false)}
+                                onSave={(files) => {
+                                    console.log('Files:', files);
+                                    setOpen(false);
+                                }}
+                                showPreviews={true}
+                                showFileNamesInPreview={true}
+                            />
+                        </div>
+
+                        <form>
+                            <TextField className={clsx(classes.textField)} id="outlined-basic" label="Type your message here" variant="outlined" />
+                        </form>
+                        <SendIcon button className="send-icons" onClick={onMessage} />
+
+                    </form>
+                </ div>
             </div>
+        </div>
 
-        </div >
+
+
+
+
+
     )
 }
 
