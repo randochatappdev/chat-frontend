@@ -21,7 +21,17 @@ import { browserHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Hello from '../Hello/Hello';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import socket from '../../socket';
+import { Link } from 'react-router-dom';
+import actions from '../../actions';
 
+function mapStateToProps(state) {
+    const { currentUser } = state;
+    const { jwt } = state;
+    const { selectedUser } = state;
+    const { users } = state;
+    return { currentUser, jwt, selectedUser, users };
+}
 
 class Homescreen extends React.Component {
     constructor(props) {
@@ -32,20 +42,24 @@ class Homescreen extends React.Component {
 
 
         this.state = {
-            users: users,
+            users: [],
             rooms: [],
             topics: topics,
             messages: messages,
             isLoggedIn: localStorage.getItem('jwt'),
-            isLoading: true
+            isLoading: true,
+            props: props
 
         }
+        console.log(this.props.users)
 
 
 
 
 
-        console.log(users)
+
+
+
 
 
     }
@@ -70,50 +84,61 @@ class Homescreen extends React.Component {
 
         try {
             const newData = await data.json();
-            this.setState({ rooms: newData })
-            this.fetchMessages()
-            console.log(newData)
+
+
+
+            // Create shallow copy of data
+            const newRooms = [...newData];
+
+            newRooms.forEach((room) => {
+
+                room.messages = [];
+
+
+
+            })
+            console.log("new", newRooms)
+            console.log(" proppy", this.props.users)
+
+            if (this.props.users.length < 1) {
+                this.props.dispatch(actions.POPULATE_USERS(newRooms))
+
+            }
+
+            socket.emit('join-rooms', newRooms)
+
 
         } catch (error) {
             console.error(error)
         }
     }
 
-    async fetchMessages() {
-        const roomArray = this.state.rooms.slice(0, 5);
 
-        roomArray.forEach((room, index) => {
-            let previousState = this.state;
-            console.log(room._id)
-            console.log(index)
-
-
-
-
-
-
-            let rooms = [...previousState.rooms]
-            console.log(this.state.rooms)
-            console.log(rooms);
-            let roomItem = { ...rooms[index] }
-            roomItem.messages = "Hello";
-            rooms[index] = roomItem;
-            console.log(rooms[index])
-            console.log(rooms)
-
-            this.setState({ rooms: rooms, isLoading: false })
-
-
-
-
-
-
-        })
-    }
 
 
     componentDidMount() {
         this.fetchUsers();
+        this.props.dispatch(actions.CHANGE_USER(null))
+        socket.on("users", (users) => {
+            users.forEach((user) => {
+                user.self = user.userID === socket.id;
+            });
+            // put the current user first, and then sort by username
+            this.state.users = users.sort((a, b) => {
+                if (a.self) return -1;
+                if (b.self) return 1;
+                if (a.username < b.username) return -1;
+                return a.username > b.username ? 1 : 0;
+            });
+            console.log(this.state.users)
+
+        });
+
+        socket.on("newMessage", (message) => {
+            console.log(message)
+        })
+
+
 
 
     }
@@ -121,33 +146,33 @@ class Homescreen extends React.Component {
 
 
     render() {
-        console.log(this.state.users);
-        if (this.state.isLoggedIn && !this.state.isLoading) {
-            console.log(this.state.rooms)
-            console.log(this.state.rooms[1].messages)
-
+        if (this.props.users && this.props.users.length > 0) {
             return (
                 < div className="container" >
                     <h1 className="header">Rooms</h1>
 
                     <List className="list">
-                        {this.state.rooms.map((room) =>
+                        {this.props.users.map((room) =>
+                            <Link to={"/chat/" + room._id} key={room._id}  >
+                                <ListItem button>
+                                    <ListItemAvatar>
+                                        <Avatar alt={room.name} src={room.groupDisplayPictureLink || "https://picsum.photos/200"} />
+                                    </ListItemAvatar>
+                                    <ListItemtext
+                                        primary={room.name}
+                                        secondary={"Hello"}
+                                        className="chat-preview"
+                                    ></ListItemtext>
+                                    <ListItemtext className="time">09:00</ListItemtext>
+                                </ListItem>
+                            </Link>
 
-                            <ListItem button key={room._id}>
-                                <ListItemAvatar>
-                                    <Avatar alt={room.name} src={room.groupDisplayPictureLink || "https://picsum.photos/200"} />
-                                </ListItemAvatar>
-                                <ListItemtext
-                                    primary={room.name}
-                                    secondary={room.messages}
-                                    className="chat-preview"
-                                ></ListItemtext>
-                                <ListItemtext className="time">09:00</ListItemtext>
-                            </ListItem>
 
                         )}
 
                     </List>
+
+
 
 
                     <BottomNavigation className="nav"
@@ -169,6 +194,34 @@ class Homescreen extends React.Component {
                     <div className="loading-container">
                         <CircularProgress className="loading" />
 
+                        {this.state.rooms &&
+                            <p>You have no rooms associated to your account.</p>}
+
+
+                        {this.props.users &&
+                            <List className="list">
+                                {this.props.users.map((user) =>
+
+                                    <Link to={"/chat/" + user.userID} onClick={() => this.props.dispatch(actions.CHANGE_USER(user))}>
+                                        <ListItem button key={user.userID}>
+                                            <ListItemAvatar>
+                                                <Avatar alt={user.alias} src={"https://picsum.photos/200"} />
+                                            </ListItemAvatar>
+                                            <ListItemtext
+                                                primary={user.alias}
+                                                secondary="Hello"
+                                                className="chat-preview"
+                                            ></ListItemtext>
+                                            <ListItemtext className="time">{user.connected}</ListItemtext>
+
+                                        </ListItem>
+
+                                    </Link>
+
+                                )}
+
+                            </List>
+                        }
                     </div>
 
 
@@ -189,4 +242,4 @@ class Homescreen extends React.Component {
     }
 }
 
-export default connect()(Homescreen)
+export default connect(mapStateToProps)(Homescreen)

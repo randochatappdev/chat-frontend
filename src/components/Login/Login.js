@@ -11,9 +11,17 @@ import {
     Link,
     useHistory
 } from "react-router-dom";
+import { connect } from "react-redux";
+
+import socket from '../../socket';
+import actions from '../../actions';
 
 
-
+function mapStateToProps(state) {
+    const { currentUser } = state;
+    const { jwt } = state;
+    return { currentUser, jwt }
+}
 
 
 class Login extends React.Component {
@@ -24,7 +32,8 @@ class Login extends React.Component {
             password: "",
             isLoggedIn: false,
             token: "",
-            logInError: false
+            logInError: false,
+            props: props
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -82,6 +91,21 @@ class Login extends React.Component {
                 this.setState({ isLoggedIn: true, token: data.jwt });
                 let localStorage = window.localStorage;
                 localStorage.setItem('jwt', data.jwt)
+
+                this.props.dispatch(actions.SET_JWT(data));
+
+
+
+                // Connect to socket.io
+                let alias = this.props.jwt.alias;
+                let sessionToken = this.props.jwt.jwt.slice(7);
+                console.log(sessionToken, alias)
+                socket.auth = { sessionToken, alias }
+                console.log("token", socket.auth.sessionToken)
+                //socket.auth = { alias };
+                socket.connect();
+
+
                 return { message: "Success" }
 
             }
@@ -92,8 +116,26 @@ class Login extends React.Component {
         })
 
 
+
     }
 
+
+
+    async fetchCurrentUser() {
+        const response = await fetch('http://localhost:4000/api/user', {
+            method: 'GET',
+            headers: {
+                'Authorization': this.state.token
+            }
+
+        });
+        try {
+            return response.json();
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
 
     render() {
@@ -168,4 +210,4 @@ function LoginButton(props) {
 
 
 
-export default Login;
+export default connect(mapStateToProps)(Login);

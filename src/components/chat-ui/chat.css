@@ -48,6 +48,8 @@ body {
 .helo {
     margin: 10px 30px 0;
     color: white;
+    height: 100vh;
+    overflow: scroll;
 }
 .helo .send {
     background-color: dodgerblue;
