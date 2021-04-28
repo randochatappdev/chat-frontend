@@ -1,0 +1,136 @@
+
+body {
+    font-family: sans-serif;
+    
+    margin: 0;
+    padding: 0;
+    
+}
+
+/* *********************************** Top Function ************************************************ */
+/*Moblie L 425px */
+.room-wrapper {
+    height: 100vh;
+    width: 100%;
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    
+}
+.room-wrapper text {
+    align-items: baseline;
+}
+.room-icon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 20px;
+    padding-top: 30px;
+    padding-left: 20px;
+}
+.room-icon h2 {
+    margin: auto;
+}
+.room-icon .icon {
+    font-size: 35px;
+    cursor: pointer;
+}
+
+/* *********************************** Middle Function ************************************************ */
+.room-mid {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+.room-mid .button-space {
+    justify-content: space-evenly;
+}
+.room-mid .createButton-mid {
+    border-radius: 30px;
+    font-size: 10px;
+    margin-right: 10px;
+}
+
+.room-mid h1 {
+    font-size: 15px;
+    margin-bottom: 10px;
+    -webkit-text-fill-color: darkgray;
+}
+
+.midRoom-mid {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 0;
+}
+.midRoom-mid .mid-icon {
+    font-size: 30px;
+    padding: 8px;
+    background-color: antiquewhite;
+    border-radius: 10px;
+    margin: 3px;
+}
+.midRoom-mid p {
+    font-size: 15px;
+    border-bottom-style: ridge;
+    padding: 10px 0px 10px;
+    margin: 0;
+}
+/* ********************************** Bottom function ************************************************* */
+.room-room {
+    display: flex;
+    flex-direction: row;
+    margin-top: auto;
+    background-color: orange;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    color: white;
+    justify-content: space-around;
+    padding-top: 10px;
+}
+
+.room-room .room-bottom {
+    display: flex;
+    flex-direction: column;
+}
+
+.room-room .roomBottom-icon {
+    font-size: 30px;
+    margin: auto;
+    cursor: pointer;
+}
+
+/* ************************************ @Media Screen 768px *********************************************** */
+@media only screen and (min-width: 768px) {
+    .end-wrapper {
+        width: 100%;
+    }
+}
+
+/* ************************************ @Media Screen 1000px *********************************************** */
+@media only screen and (min-width: 1000px) {
+    .end-wrapper {
+        width: 100%;
+    }
+
+    .room-mid .createButton-mid {
+        font-size: 15px;
+    }
+    .room-mid h1 {
+        font-size: 25px;
+        margin-bottom: 10px;
+    }
+    .midRoom-mid .mid-icon {
+        font-size: 30px;
+        padding: 8px;
+        border-radius: 10px;
+    }
+    .midRoom-mid p {
+        font-size: 20px;
+    }
+}
+
+
+
+

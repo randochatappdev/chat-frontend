@@ -17,8 +17,8 @@ function Join() {
                 </div>
 
                 <span className="hi">
-                    <p className="send">That's dope haha Only by cutting off the connection would she be able to free herself from the beckoning of the Chaos Abyss.Only by cutting off the connection would she be able to free herself from the beckoning of the Chaos Abyss.</p>
-                    <p className="reply">Nope. That's weird Only by cutting off the connection would she be able to free herself from the beckoning of the Chaos Abyss.Only by cutting off the connection would she be able to free herself from the beckoning of the Chaos Abyss.</p>
+                    <p className="send">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                    <p className="reply">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
                     <p className="send">Well, you're right hahaha</p>
                     <p className="reply">Here, another one hahahah</p>
                     <p className="send">Now, that's a weird one</p>
@@ -31,7 +31,7 @@ function Join() {
                         <NotificationsActiveIcon className="notif"/>
                         <p>Do you want to join this room?</p>
                     </div>
-                    <div className="button">
+                    <div className="join-button">
                     <Button variant="contained" color="secondary">NO</Button>
                     <Button className="join" variant="contained" color="primary">YES, JOIN</Button>
                     </div>

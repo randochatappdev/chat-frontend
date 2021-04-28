@@ -4,6 +4,8 @@ import Chat from "./components/chat-ui/chat"
 import Join from "./components/Assess-room/join"
 import Call from "./components/voiceCall/call/call"
 import End from "./components/voiceCall/end/end"
+import Room from "./components/Room-Finder/room"
+import Extend from "./components/Extended-view/extend"
 import Settings from "./components/Settings/Settings"
 import Login from "./components/Login/Login"
 import {
@@ -66,7 +68,15 @@ function App(props) {
             <Link to="/end"> (End)</Link>
           </li>
 
+<<<<<<< HEAD
+          <li>
+            <Link to="/room-finder">(Room Finder) </Link>
+            <Link to="/extended-view"> (Extended Topic View)</Link>
+          </li>
+        
+=======
 
+>>>>>>> d5a81117607a39aaf0eb1110dafa560c14d454bf
 
 
           <li>
@@ -106,6 +116,13 @@ function App(props) {
 
         <Route path="/end">
           <End></End>
+        </Route>
+
+        <Route path="/room-finder">
+          <Room></Room>
+        </Route>
+        <Route path="/extended-view">
+          <Extend></Extend>
         </Route>
 
 
