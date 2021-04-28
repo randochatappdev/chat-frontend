@@ -89,10 +89,18 @@ class Homescreen extends React.Component {
 
             // Create shallow copy of data
             const newRooms = [...newData];
+
             newRooms.forEach((room) => {
-                room.messages = [];
+                if (!room.messages) {
+                    room.messages = [];
+
+                }
             })
-            this.props.dispatch(actions.POPULATE_USERS(newRooms))
+
+            if (!this.props.users) {
+                this.props.dispatch(actions.POPULATE_USERS(newRooms))
+
+            }
             this.fetchMessages()
             //console.log(newData)
             console.log(newRooms)
