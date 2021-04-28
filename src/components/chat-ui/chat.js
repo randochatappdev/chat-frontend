@@ -14,6 +14,7 @@ import socket from '../../socket';
 import { useState } from 'react';
 import actions from '../../actions';
 import { SettingsInputAntenna } from '@material-ui/icons';
+import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -34,14 +35,25 @@ function mapStateToProps(state) {
 function Chat(props) {
     const [textInput, setText] = useState("");
     const [messages, setMessages] = useState([]);
-    const [userIndex, setIndex] = useState(determineIndex());
+    const [userIndex, setIndex] = useState(-1);
+    let { id } = useParams();
 
     function handleTextInputChange(event) {
         setText(event.target.value)
     }
 
+    // Determine if there is a selected user 
+    if (!props.selectedUser) {
+        if (props.users.length > 0) {
+            props.dispatch(actions.CHANGE_USER(findUser()))
+            console.log("Sure", findUser())
+        }
+
+    }
+
     function determineIndex() {
 
+        console.log("determining")
         const newRooms = [...props.users];
         const findRoom = (room) => room._id === props.selectedUser._id
         const newUserIndex = newRooms.findIndex(findRoom);
@@ -50,10 +62,13 @@ function Chat(props) {
     }
 
     function findUser() {
+        console.log(props.users)
         const newRooms = [...props.users];
-        //const findUser = (user) => user.userID === props.selectedUser.userID
-        const newRoom = newRooms.find((user) => user.userID === props.selectedUser.userID);
+        //const findUser = (user) => user.userID === id
+        const newRoom = newRooms.find((user) => user._id == id);
+        console.log(newRoom);
         return newRoom;
+        //props.dispatch(actions.CHANGE_USER(newRoom))
     }
     function onMessage(event) {
         event.preventDefault();
@@ -80,9 +95,9 @@ function Chat(props) {
 
         // Part 2 Use map/for to create new Array with messages (match the user id)
         const newRooms = [...props.users];
-        const findRoom = (room) => room._id === props.selectedUser._id;
+        const findRoom = (room) => room._id === id;
         const newRoomIndex = newRooms.findIndex(findRoom);
-        const newRoom = newRooms.find(room => room._id === props.selectedUser._id);
+        const newRoom = newRooms.find(room => room._id === id);
         //console.log(newUser)
         newRoom.messages.push({ content: textInput, self: true })
         newRooms[newRoomIndex] = newRoom;
@@ -96,6 +111,8 @@ function Chat(props) {
 
     const classes = useStyles();
     console.log(props.users)
+    console.log('selected', props.selectedUser)
+    console.log(props.users.length)
 
     return (
 
@@ -108,9 +125,10 @@ function Chat(props) {
             </div>
 
 
-            {console.log(props.users)}
+            {console.log("Yope", userIndex)}
 
-            {props.users[userIndex].messages &&
+
+            {props.selectedUser && userIndex > -1 && props.users[userIndex].messages.length > 0 &&
                 <span className="helo">
                     {props.users[userIndex].messages.map((message, index) => (
                         console.log(message),

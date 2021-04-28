@@ -39,7 +39,54 @@ class App extends React.Component {
     this.state = { users: [], nyeam: "" }
 
     this.onLogout = this.onLogout.bind(this);
+    this.fetchUsers = this.fetchUsers.bind(this);
 
+  }
+
+  async fetchUsers() {
+    const data = await fetch('http://localhost:4000/api/rooms', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': localStorage.getItem('jwt')
+
+
+      }
+    });
+
+    try {
+      const newData = await data.json();
+      this.setState({ rooms: newData })
+
+
+      // Create shallow copy of data
+      const newRooms = [...newData];
+
+      newRooms.forEach((room) => {
+
+        room.messages = [];
+
+
+
+      })
+      console.log("new", newRooms)
+      console.log(" proppy", this.props.users)
+
+      if (this.props.users.length < 1) {
+        this.props.dispatch(actions.POPULATE_USERS(newRooms))
+
+      }
+      //this.fetchMessages()
+      //console.log(newData)
+      console.log(newRooms)
+
+      socket.emit('join-rooms', newRooms)
+
+
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   componentDidMount() {
@@ -56,6 +103,8 @@ class App extends React.Component {
         socket.connect();
       }
     }
+
+    this.fetchUsers();
 
 
 
@@ -271,7 +320,7 @@ class App extends React.Component {
             <Homescreen></Homescreen>
           </Route>
 
-          <Route path="/chat">
+          <Route path="/chat/:id">
             <Chat></Chat>
           </Route>
 

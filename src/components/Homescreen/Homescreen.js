@@ -186,8 +186,8 @@ class Homescreen extends React.Component {
 
                     <List className="list">
                         {this.state.rooms.map((room) =>
-                            <Link to={"/chat/" + room._id} onClick={() => this.props.dispatch(actions.CHANGE_USER(room))}>
-                                <ListItem button key={room._id}>
+                            <Link to={"/chat/" + room._id} key={room._id} onClick={() => this.props.dispatch(actions.CHANGE_USER(room))} >
+                                <ListItem button>
                                     <ListItemAvatar>
                                         <Avatar alt={room.name} src={room.groupDisplayPictureLink || "https://picsum.photos/200"} />
                                     </ListItemAvatar>
@@ -205,28 +205,7 @@ class Homescreen extends React.Component {
 
                     </List>
 
-                    <List className="list">
-                        {this.props.users.map((user) =>
 
-                            <Link to={"/chat/" + user.userID} onClick={() => this.props.dispatch(actions.CHANGE_USER(user))}>
-                                <ListItem button key={user.userID}>
-                                    <ListItemAvatar>
-                                        <Avatar alt={user.alias} src={"https://picsum.photos/200"} />
-                                    </ListItemAvatar>
-                                    <ListItemtext
-                                        primary={user.alias}
-                                        secondary="Hello"
-                                        className="chat-preview"
-                                    ></ListItemtext>
-                                    <ListItemtext className="time">{user.connected}</ListItemtext>
-
-                                </ListItem>
-
-                            </Link>
-
-                        )}
-
-                    </List>
 
 
                     <BottomNavigation className="nav"
