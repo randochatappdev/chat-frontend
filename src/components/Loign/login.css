@@ -1,0 +1,45 @@
+h1{
+text-align: center;
+font-size: 2em;
+top: 214px;
+
+font-family: Tajawal;
+font-style: normal;
+font-weight: normal;
+font-size: 64px;
+line-height: 21px;
+/* identical to box height, or 33% */
+
+letter-spacing: -0.32px;
+
+color: #000000;
+}
+h2{
+    text-align: center;
+    font-size: 2em;
+
+font-family: Roboto;
+font-style: normal;
+font-weight: bold;
+font-size: 14px;
+line-height: 16px;
+/* identical to box height, or 114% */
+
+letter-spacing: 1.25px;
+text-transform: uppercase;
+
+color: #000000;
+}
+.buttons{
+    display: flex;
+    position: center;
+    flex-direction:column;
+    width: 50%;
+    text-align: center;
+}
+
+
+.container {
+    width: 100%;
+    text-align: center;
+}

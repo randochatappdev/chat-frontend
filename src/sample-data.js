@@ -30,3 +30,5 @@ let messages = [
     { _id: '009', sender: '14552', room: '76', content: { type: "text", body: "I'm doing great." }, timestamp: "1617017503258" }
 
 ];
+
+export { users, topics, rooms, messages }

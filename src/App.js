@@ -7,18 +7,41 @@ import End from "./components/voiceCall/end/end"
 import Room from "./components/Room-Finder/room"
 import Extend from "./components/Extended-view/extend"
 import Settings from "./components/Settings/Settings"
+import Login from "./components/Login/Login"
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from "react-router-dom";
+import { connect, Provider } from 'react-redux';
 
-function App() {
+import Homescreen from './components/Homescreen/Homescreen';
+import actions from './actions';
+import store from './store';
+
+function mapStateToProps(state) {
+  console.log(state)
+  return { counter: state }
+}
+
+
+
+
+
+
+
+
+function App(props) {
   return (
+
     <Router>
+      <button type="button" onClick={() => props.dispatch(actions.INCREMENT(50))}>Add</button>
       {/* This div is only for testing purposes */}
+      {console.log(store.getState())}
       <div>
+        {console.log(props)}
+        <p>{props.counter}</p>
         <ul>
           <li>
             <Link to="/home">Home</Link>
@@ -45,11 +68,15 @@ function App() {
             <Link to="/end"> (End)</Link>
           </li>
 
+<<<<<<< HEAD
           <li>
             <Link to="/room-finder">(Room Finder) </Link>
             <Link to="/extended-view"> (Extended Topic View)</Link>
           </li>
         
+=======
+
+>>>>>>> d5a81117607a39aaf0eb1110dafa560c14d454bf
 
 
           <li>
@@ -72,7 +99,7 @@ function App() {
         </Route>
 
         <Route path="/home">
-          <p>Home</p>
+          <Homescreen></Homescreen>
         </Route>
 
         <Route path="/chat">
@@ -103,10 +130,15 @@ function App() {
           <Settings></Settings>
         </Route>
 
+        <Route path="/login">
+          <Login />
+        </Route>
+
 
 
       </Switch>
     </Router>
+
   );
 }
 
@@ -125,4 +157,4 @@ function Goodbye() {
 }
 
 
-export default App;
+export default connect(mapStateToProps)(App);
