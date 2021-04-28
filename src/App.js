@@ -38,16 +38,23 @@ class App extends React.Component {
     super(props);
     this.state = { users: [], nyeam: "" }
 
-
+    this.onLogout = this.onLogout.bind(this);
 
   }
 
   componentDidMount() {
-    const sessionToken = localStorage.getItem("sessionToken");
-    if (sessionToken) {
-      socket.auth = { sessionToken };
-      socket.connect();
+    let localStorage = window.localStorage;
+    let session = localStorage.getItem("sessionToken");
+
+
+    if (session) {
+      const sessionToken = localStorage.getItem("sessionToken");
+      if (sessionToken) {
+        socket.auth = { sessionToken };
+        socket.connect();
+      }
     }
+
 
 
 
@@ -192,6 +199,10 @@ class App extends React.Component {
     socket.removeAllListeners();
   }
 
+  onLogout() {
+    window.localStorage.clear();
+  }
+
   render() {
 
     return (
@@ -231,11 +242,12 @@ class App extends React.Component {
               <Link to="/end"> (End)</Link>
             </li>
 
-
-
-
             <li>
               <Link to="/settings">Settings</Link>
+            </li>
+
+            <li>
+              <button onClick={this.onLogout}>Logout</button>
             </li>
 
 

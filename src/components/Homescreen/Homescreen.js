@@ -91,13 +91,16 @@ class Homescreen extends React.Component {
             const newRooms = [...newData];
 
             newRooms.forEach((room) => {
-                if (!room.messages) {
-                    room.messages = [];
 
-                }
+                room.messages = [];
+
+
+
             })
+            console.log("new", newRooms)
+            console.log(" proppy", this.props.users)
 
-            if (!this.props.users) {
+            if (this.props.users.length < 1) {
                 this.props.dispatch(actions.POPULATE_USERS(newRooms))
 
             }

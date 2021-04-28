@@ -109,16 +109,20 @@ function Chat(props) {
 
 
             {console.log(props.users)}
-            <span className="helo">
-                {props.users[userIndex].messages.map((message, index) => (
-                    console.log(message),
-                    console.log(message.self),
-                    message.self
-                        ? <p className="send" key={index}>{message.content}</p>
-                        : <p className="reply" key={index}>{message.content}</p>
-                ))}
 
-            </span>
+            {props.users[userIndex].messages &&
+                <span className="helo">
+                    {props.users[userIndex].messages.map((message, index) => (
+                        console.log(message),
+                        console.log(message.self),
+                        message.self
+                            ? <p className="send" key={index}>{message.content}</p>
+                            : <p className="reply" key={index}>{message.content}</p>
+                    ))}
+
+                </span>
+            }
+
 
 
 
