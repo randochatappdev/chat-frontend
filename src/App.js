@@ -47,8 +47,10 @@ class App extends React.Component {
     let session = localStorage.getItem("sessionToken");
 
 
-    if (session) {
+
+    if (session !== 'undefined' && session) {
       const sessionToken = localStorage.getItem("sessionToken");
+      console.log("why")
       if (sessionToken) {
         socket.auth = { sessionToken };
         socket.connect();
