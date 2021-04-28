@@ -58,11 +58,15 @@ function Chat(props) {
     function onMessage(event) {
         event.preventDefault();
         console.log(textInput)
+        console.log("Sent once")
+
         if (props.selectedUser) {
-            socket.emit("room message", {
+            socket.emit("room message send", {
                 content: textInput,
                 to: props.selectedUser._id,
+
             });
+            console.log("emit")
             console.log(textInput, props.selectedUser._id)
             /*this.selectedUser.messages.push({
                 content,
@@ -72,6 +76,7 @@ function Chat(props) {
 
         // Part 1 Localized
 
+        // 
 
         // Part 2 Use map/for to create new Array with messages (match the user id)
         const newRooms = [...props.users];
@@ -124,7 +129,7 @@ function Chat(props) {
                     <TextField className={clsx(classes.textField)} id="outlined-basic" value={textInput} onChange={handleTextInputChange} label="Type your message here" variant="outlined" />
 
                 </form>
-                <SendIcon className="send-icons" />
+                <SendIcon button className="send-icons" onClick={onMessage} />
             </div>
 
         </div>
