@@ -37,7 +37,7 @@ function Manage (props)  {
 
             <div className="button">
                 <Button color="primary">VIEW ALL PARTICIPANTS</Button>
-                <Button onClick = {AlertDialog} color="secondary">LOGOUT</Button>
+                <Button color="secondary" onClick = {AlertDialog}>LOGOUT</Button>
             </div>
         </div>
     )
