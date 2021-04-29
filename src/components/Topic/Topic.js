@@ -39,6 +39,9 @@ function Topic(props) {
     console.log(inputValue)
   })
 
+
+
+
   // Change search results based on search query input
   function filterTopicsOnSearch(value) {
     if (!value || value === '' || value === ' ' || value.length == 0) {
@@ -76,6 +79,12 @@ function Topic(props) {
 
     }
 
+  }
+
+  // Handle deleting a chip from the array
+  function handleDelete(event, topic) {
+    const newTopicChipArray = topicChipsArray.filter((indexedTopic) => indexedTopic._id !== topic._id)
+    setChipData(newTopicChipArray);
   }
 
 
@@ -123,7 +132,7 @@ function Topic(props) {
       <Paper className='papers' elevation={3}>
         {props.currentUser && topicChipsArray &&
           topicChipsArray.map(topic => (
-            <Chip label={topic.name}>  </Chip>
+            <Chip label={topic.name} onDelete={(e) => handleDelete(e, topic)}>  </Chip>
           ))
         }
 
