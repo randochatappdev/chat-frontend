@@ -58,8 +58,23 @@ function Topic(props) {
   function handleFaveButtonClick(event, topic) {
     //console.log(topic)
     const newTopicChipsArray = [...topicChipsArray];
-    newTopicChipsArray.push(topic);
-    setChipData(newTopicChipsArray)
+
+
+    let isAlreadyIncluded;
+    // Check if topic to be added is already included
+    newTopicChipsArray.forEach(topicIndexed => {
+      if (topicIndexed._id === topic._id) {
+        //console.log("Already included")
+        isAlreadyIncluded = true;
+      }
+    })
+
+    // Add topic to chips array
+    if (!isAlreadyIncluded) {
+      newTopicChipsArray.push(topic);
+      setChipData(newTopicChipsArray)
+
+    }
 
   }
 
