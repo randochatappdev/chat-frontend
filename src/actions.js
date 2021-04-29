@@ -26,6 +26,10 @@ let actions = {
 
     CHANGE_USER: function (user) {
         return { type: 'CHANGE_USER', payload: user }
+    },
+
+    POPULATE_TOPICS: function (topics) {
+        return { type: 'POPULATE_TOPICS', payload: topics }
     }
 }
 

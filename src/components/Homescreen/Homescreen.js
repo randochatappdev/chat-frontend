@@ -25,6 +25,7 @@ import socket from '../../socket';
 import { Link } from 'react-router-dom';
 import actions from '../../actions';
 
+
 function mapStateToProps(state) {
     const { currentUser } = state;
     const { jwt } = state;
@@ -232,7 +233,14 @@ class Homescreen extends React.Component {
 
                     >
                         <BottomNavigationAction className="buttonnav" label="Rooms" icon={<RestoreIcon />} />
-                        <BottomNavigationAction className="buttonnav" label="Room Finder" icon={<SearchIcon />} />
+
+                        <Link to="/find">
+                            <BottomNavigationAction className="buttonnav" label="Room Finder" icon={<SearchIcon />} />
+
+                        </Link>
+
+
+
                         <BottomNavigationAction className="buttonnav" label="Settings" icon={<SettingsIcon />} />
                     </BottomNavigation>
                 </div >

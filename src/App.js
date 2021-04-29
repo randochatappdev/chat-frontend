@@ -8,6 +8,8 @@ import Room from "./components/Room-Finder/room"
 import Extend from "./components/Extended-view/extend"
 import Settings from "./components/Settings/Settings"
 import Login from "./components/Login/Login"
+import Find from "./components/Find/Find";
+import Finder from "./components/Finder/Finder";
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,6 +19,7 @@ import {
 import { connect, Provider } from 'react-redux';
 
 import Homescreen from './components/Homescreen/Homescreen';
+import Topic from './components/Topic/Topic';
 import actions from './actions';
 import store from './store';
 import React from 'react';
@@ -379,6 +382,17 @@ class App extends React.Component {
           </Route>
           <Route path="/extended-view">
             <Extend></Extend>
+          </Route>
+          <Route path="/find">
+            <Find />
+          </Route>
+
+          <Route path="/finder">
+            <Finder></Finder>
+          </Route>
+
+          <Route path="/topics/edit">
+            <Topic></Topic>
           </Route>
 
 

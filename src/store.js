@@ -81,6 +81,20 @@ function selectedUser(state, action) {
     }
 }
 
+function topics(state, action) {
+    if (typeof state === 'undefined') {
+        state = "" // If state is undefined, initialize it with a default value
+    }
+
+    switch (action.type) {
+        case 'POPULATE_TOPICS':
+            return action.payload;
+
+        default:
+            return state
+    }
+}
+
 
 
 
@@ -89,8 +103,9 @@ const combinedReducers = combineReducers({
     currentUser,
     jwt,
     users,
-    selectedUser
+    selectedUser,
+    topics
 })
 
-const store = createStore(combinedReducers, + window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStore(combinedReducers);
 export default store;
