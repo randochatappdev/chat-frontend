@@ -3,6 +3,9 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Chip from '@material-ui/core/Chip';
 import TextField from '@material-ui/core/TextField';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import IconButton from '@material-ui/core/IconButton';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import { users, topics, rooms, messages } from '../../sample-data';
 import './topic.css';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -49,6 +52,15 @@ function Topic(props) {
         setResults(searchTopics)
       }
     }
+  }
+
+  // Add new topics to topic chip array
+  function handleFaveButtonClick(event, topic) {
+    //console.log(topic)
+    const newTopicChipsArray = [...topicChipsArray];
+    newTopicChipsArray.push(topic);
+    setChipData(newTopicChipsArray)
+
   }
 
 
@@ -101,14 +113,22 @@ function Topic(props) {
         }
 
       </Paper>
-      <List>
-        {topicsOnResults &&
-          topicsOnResults.map((topic) => (
-            <ListItem key={topic._id}>
-              <ListItemText primary={topic.name}></ListItemText>
-            </ListItem>
-          ))}
-      </List>
+      <Paper className='papers' elevation={3}>
+        <List>
+          {topicsOnResults &&
+            topicsOnResults.map((topic) => (
+              <ListItem key={topic._id}>
+                <ListItemText primary={topic.name}></ListItemText>
+                <ListItemSecondaryAction>
+                  <IconButton edge="end" aria-label="add topic">
+                    <FavoriteIcon onClick={(e) => handleFaveButtonClick(e, topic)} />
+                  </IconButton>
+                </ListItemSecondaryAction>
+              </ListItem>
+            ))}
+        </List>
+      </Paper>
+
     </div>
   )
 }
