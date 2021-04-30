@@ -6,6 +6,9 @@ import TextField from '@material-ui/core/TextField';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import Button from '@material-ui/core/Button';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 import { users, topics, rooms, messages } from '../../sample-data';
 import './topic.css';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -21,6 +24,10 @@ function mapStateToProps(state) {
   return { currentUser, jwt, selectedUser, users };
 }
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 
 function Topic(props) {
   const [topicChipsArray, setChipData] = useState();
@@ -28,6 +35,22 @@ function Topic(props) {
   const [inputValue, setInputValue] = useState('');
   const [topicsOnResults, setResults] = useState();
   const [didFetch, setDidFetch] = useState(false);
+  const [savePrefSuccess, setSavePrefStatus] = useState();
+  const [open, setOpen] = useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+
 
   useEffect(() => {
     if (props.currentUser && !didFetch) {
@@ -119,6 +142,36 @@ function Topic(props) {
     // Use Array filter to filter topics
     const topics = newData.filter((topic, index) => props.currentUser.preferredTopics.includes(topic._id));
     setChipData(topics);
+
+  }
+
+  // Saves new preferences to database
+  async function handleSavePref() {
+
+    const data = { preferredTopics: topicChipsArray }
+    const response = await fetch('http://localhost:4000/api/user/topics', {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': localStorage.getItem('jwt')
+
+
+      }
+    });
+    try {
+      let serverResponse = await response.json();
+      setSavePrefStatus(serverResponse.status)
+      if (serverResponse.status === "Success") {
+        handleClick();
+
+      }
+
+    } catch (error) {
+      console.log(error)
+    }
+
   }
 
 
@@ -152,8 +205,53 @@ function Topic(props) {
             ))}
         </List>
       </Paper>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">
+          Your preferences are saved.
+        </Alert>
+      </Snackbar>
+
+
+      <Button className="save-pref-button" color="secondary" onClick={handleSavePref}>Secondary</Button>
+
 
     </div>
   )
+}
+
+function Bars() {
+
+  const [open, setOpen] = useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+  return (
+    <div>
+      <Button variant="outlined" onClick={handleClick}>
+        Open success snackbar
+      </Button>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">
+          This is a success message!
+        </Alert>
+      </Snackbar>
+      <Alert severity="error">This is an error message!</Alert>
+      <Alert severity="warning">This is a warning message!</Alert>
+      <Alert severity="info">This is an information message!</Alert>
+      <Alert severity="success">This is a success message!</Alert>
+
+    </div>
+
+  )
+
 }
 export default connect(mapStateToProps)(Topic);

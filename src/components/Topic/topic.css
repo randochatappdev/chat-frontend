@@ -4,3 +4,13 @@
 h1{
     text-align: center;
 }
+
+.containers {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 5vh;
+    box-sizing: border-box;
+    padding: 0vh 3vw;
+}
+
