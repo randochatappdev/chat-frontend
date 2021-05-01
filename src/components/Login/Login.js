@@ -278,12 +278,12 @@ function LoginButton(props) {
     }
 
     return (
-        <Link>
-            <Button variant="contained" color="primary" className="button" onClick={handleLinkClick}>
-                Login
 
-            </Button>
-        </Link>
+        <Button variant="contained" color="primary" className="button" onClick={handleLinkClick}>
+            Login
+
+        </Button>
+
     );
 }
 
