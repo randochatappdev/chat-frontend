@@ -20,6 +20,15 @@ import { connect, Provider } from 'react-redux';
 
 import Homescreen from './components/Homescreen/Homescreen';
 import Topic from './components/Topic/Topic';
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import RestoreIcon from '@material-ui/icons/Restore';
+import SearchIcon from '@material-ui/icons/Search';
+import SettingsIcon from '@material-ui/icons/Settings';
+
+
+
+
 import actions from './actions';
 import store from './store';
 import React from 'react';
@@ -306,115 +315,92 @@ class App extends React.Component {
   render() {
 
     return (
+      <div className="app-container">
+        <Router>
 
-      <Router>
-        <p>{this.state.nyeam}</p>
-        <button type="button" onClick={() => this.props.dispatch(actions.INCREMENT(50))} >Add</button>
-        {/* This div is only for testing purposes */}
-        {console.log(store.getState())}
-        {console.log(this.props.users)}
-        <div>
-          {console.log(this.props)}
-          <p>{this.props.counter}</p>
-          <ul>
-            <li>
-              <Link to="/home">Home</Link>
-            </li>
+          <Switch >
 
-            <li>
-              <Link to="/welcome">Welcome</Link>
-            </li>
+            <Route path="/welcome" className="main-screen">
+              <Hello></Hello>
+            </Route>
 
-            <li>
-              <Link to="/exit">Exit</Link>
-            </li>
+            <Route path="/exit" className="main-screen">
+              <Goodbye></Goodbye>
+            </Route>
 
-            <li>
-              <Link to="/chat">Chat</Link>
-            </li>
+            <Route path="/home" >
+              <Homescreen className="main-screen"></Homescreen>
+            </Route>
 
-            <li>
-              <Link to="/join">Join</Link>
-            </li>
+            <Route path="/chat/:id" >
+              <Chat className="main-screen"></Chat>
+            </Route>
 
-            <li>
-              <Link to="/call">(Call) </Link>
-              <Link to="/end"> (End)</Link>
-            </li>
+            <Route path="/join" >
+              <Join className="main-screen"></Join>
+            </Route>
 
-            <li>
-              <Link to="/settings">Settings</Link>
-            </li>
+            <Route path="/call" >
+              <Call className="main-screen"></Call>
+            </Route>
 
-            <li>
-              <button onClick={this.onLogout}>Logout</button>
-            </li>
+            <Route path="/end">
+              <End className="main-screen"></End>
+            </Route>
 
 
-          </ul>
-        </div>
+            <Route path="/settings">
+              <Settings className="main-screen"></Settings>
+            </Route>
 
+            <Route path="/login">
+              <Login className="main-screen" />
+            </Route>
+            <Route path="/room-finder">
+              <Room className="main-screen"></Room>
+            </Route>
+            <Route path="/extended-view" >
+              <Extend className="main-screen"></Extend>
+            </Route>
+            <Route path="/find">
+              <Find className="main-screen" />
+            </Route>
 
-        <Switch>
+            <Route path="/finder" >
+              <Finder className="main-screen"></Finder>
+            </Route>
 
-          <Route path="/welcome">
-            <Hello></Hello>
-          </Route>
-
-          <Route path="/exit">
-            <Goodbye></Goodbye>
-          </Route>
-
-          <Route path="/home">
-            <Homescreen></Homescreen>
-          </Route>
-
-          <Route path="/chat/:id">
-            <Chat></Chat>
-          </Route>
-
-          <Route path="/join">
-            <Join></Join>
-          </Route>
-
-          <Route path="/call">
-            <Call></Call>
-          </Route>
-
-          <Route path="/end">
-            <End></End>
-          </Route>
-
-
-          <Route path="/settings">
-            <Settings></Settings>
-          </Route>
-
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/room-finder">
-            <Room></Room>
-          </Route>
-          <Route path="/extended-view">
-            <Extend></Extend>
-          </Route>
-          <Route path="/find">
-            <Find />
-          </Route>
-
-          <Route path="/finder">
-            <Finder></Finder>
-          </Route>
-
-          <Route path="/topics/edit">
-            <Topic></Topic>
-          </Route>
+            <Route path="/topics/edit" >
+              <Topic className="main-screen"></Topic>
+            </Route>
 
 
 
-        </Switch>
-      </Router>
+          </Switch>
+
+
+          <BottomNavigation className="nav"
+            showLabels
+
+          >
+            <BottomNavigationAction className="buttonnav" label="Rooms" icon={<RestoreIcon />}
+              component={Link} to="/home"
+
+            />
+
+
+            <BottomNavigationAction className="buttonnav" label="Room Finder" icon={<SearchIcon />}
+              component={Link} to="/find" />
+
+
+
+
+
+            <BottomNavigationAction component={Link} to="/settings" className="buttonnav" label="Settings" icon={<SettingsIcon />}
+            />
+          </BottomNavigation>
+        </Router >
+      </div>
 
     );
   }

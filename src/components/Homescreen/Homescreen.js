@@ -110,14 +110,7 @@ class Homescreen extends React.Component {
 
 
 
-                    <BottomNavigation className="nav"
-                        showLabels
 
-                    >
-                        <BottomNavigationAction className="buttonnav" label="Rooms" icon={<RestoreIcon />} />
-                        <BottomNavigationAction className="buttonnav" label="Room Finder" icon={<SearchIcon />} />
-                        <BottomNavigationAction className="buttonnav" label="Settings" icon={<SettingsIcon />} />
-                    </BottomNavigation>
                 </div >
             )
         } else {
@@ -143,16 +136,21 @@ class Homescreen extends React.Component {
                         showLabels
 
                     >
-                        <BottomNavigationAction className="buttonnav" label="Rooms" icon={<RestoreIcon />} />
+                        <BottomNavigationAction className="buttonnav" label="Rooms" icon={<RestoreIcon />}
+                            component={Link} to="/home"
 
-                        <Link to="/find">
-                            <BottomNavigationAction className="buttonnav" label="Room Finder" icon={<SearchIcon />} />
-
-                        </Link>
+                        />
 
 
+                        <BottomNavigationAction className="buttonnav" label="Room Finder" icon={<SearchIcon />}
+                            component={Link} to="/find" />
 
-                        <BottomNavigationAction className="buttonnav" label="Settings" icon={<SettingsIcon />} />
+
+
+
+
+                        <BottomNavigationAction component={Link} to="/settings" className="buttonnav" label="Settings" icon={<SettingsIcon />}
+                        />
                     </BottomNavigation>
                 </div >
             )

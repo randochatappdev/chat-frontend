@@ -1,11 +1,12 @@
 .container {
-    height: 100vh;
+    height: 100%;
     width: 100%;
     font-family: 'Roboto';
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     box-sizing: border-box;
+    overflow: scroll;
 }
 
 .header {
