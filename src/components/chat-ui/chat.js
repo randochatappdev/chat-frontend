@@ -14,7 +14,7 @@ import socket from '../../socket';
 import { useState, useEffect } from 'react';
 import actions from '../../actions';
 import { SettingsInputAntenna } from '@material-ui/icons';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { DropzoneDialog } from 'material-ui-dropzone';
 import React from "react";
 
@@ -40,7 +40,9 @@ function Chat(props) {
     const [messages, setMessages] = useState([]);
     const [userIndex, setIndex] = useState(-1);
     const [hasFetched, setHasFetched] = useState(false);
+    const [backIsClicked, setBackClicked] = useState(false);
     let { id } = useParams();
+    let history = useHistory();
 
     useEffect(() => {
 
@@ -73,8 +75,20 @@ function Chat(props) {
 
     })
 
+    useEffect(() => {
+        return function cleanup() {
+            props.dispatch(actions.CHANGE_USER(null))
+
+        }
+    }, [backIsClicked])
+
     function handleTextInputChange(event) {
         setText(event.target.value)
+    }
+
+    function handleBack(event) {
+        history.goBack();
+        setBackClicked(true);
     }
 
     async function fetchMessages() {
@@ -201,7 +215,7 @@ function Chat(props) {
         <div>
             <div className="chat-wrapper">
                 <div className="chat-name">
-                    <ArrowBackIosIcon className="back-icon" />
+                    <ArrowBackIosIcon className="back-icon" button onClick={handleBack} />
                     <AccountCircleIcon className="avatar-icon" />
                     {props.selectedUser &&
                         <h2>{props.selectedUser.name}</h2>

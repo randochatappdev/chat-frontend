@@ -25,12 +25,14 @@ import socket from '../../socket';
 import { Link } from 'react-router-dom';
 import actions from '../../actions';
 
+
 function mapStateToProps(state) {
     const { currentUser } = state;
     const { jwt } = state;
     const { selectedUser } = state;
     const { users } = state;
-    return { currentUser, jwt, selectedUser, users };
+    const { rooms } = state;
+    return { currentUser, jwt, selectedUser, users, rooms };
 }
 
 class Homescreen extends React.Component {
@@ -70,89 +72,22 @@ class Homescreen extends React.Component {
     }
 
 
-    async fetchUsers() {
-        const data = await fetch('http://localhost:4000/api/rooms', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': localStorage.getItem('jwt')
-
-
-            }
-        });
-
-        try {
-            const newData = await data.json();
-
-
-
-            // Create shallow copy of data
-            const newRooms = [...newData];
-
-            newRooms.forEach((room) => {
-
-                room.messages = [];
-
-
-
-            })
-            console.log("new", newRooms)
-            console.log(" proppy", this.props.users)
-
-            if (this.props.users.length < 1) {
-                this.props.dispatch(actions.POPULATE_USERS(newRooms))
-
-            }
-
-            socket.emit('join-rooms', newRooms)
-
-
-        } catch (error) {
-            console.error(error)
-        }
-    }
-
 
 
 
     componentDidMount() {
-        this.fetchUsers();
-        this.props.dispatch(actions.CHANGE_USER(null))
-        socket.on("users", (users) => {
-            users.forEach((user) => {
-                user.self = user.userID === socket.id;
-            });
-            // put the current user first, and then sort by username
-            this.state.users = users.sort((a, b) => {
-                if (a.self) return -1;
-                if (b.self) return 1;
-                if (a.username < b.username) return -1;
-                return a.username > b.username ? 1 : 0;
-            });
-            console.log(this.state.users)
-
-        });
-
-        socket.on("newMessage", (message) => {
-            console.log(message)
-        })
-
-
-
-
     }
 
 
 
     render() {
-        if (this.props.users && this.props.users.length > 0) {
+        if (this.props.rooms && this.props.rooms.length > 0) {
             return (
                 < div className="container" >
                     <h1 className="header">Rooms</h1>
 
                     <List className="list">
-                        {this.props.users.map((room) =>
+                        {this.props.rooms.map((room) =>
                             <Link to={"/chat/" + room._id} key={room._id}  >
                                 <ListItem button>
                                     <ListItemAvatar>
@@ -198,30 +133,7 @@ class Homescreen extends React.Component {
                             <p>You have no rooms associated to your account.</p>}
 
 
-                        {this.props.users &&
-                            <List className="list">
-                                {this.props.users.map((user) =>
 
-                                    <Link to={"/chat/" + user.userID} onClick={() => this.props.dispatch(actions.CHANGE_USER(user))}>
-                                        <ListItem button key={user.userID}>
-                                            <ListItemAvatar>
-                                                <Avatar alt={user.alias} src={"https://picsum.photos/200"} />
-                                            </ListItemAvatar>
-                                            <ListItemtext
-                                                primary={user.alias}
-                                                secondary="Hello"
-                                                className="chat-preview"
-                                            ></ListItemtext>
-                                            <ListItemtext className="time">{user.connected}</ListItemtext>
-
-                                        </ListItem>
-
-                                    </Link>
-
-                                )}
-
-                            </List>
-                        }
                     </div>
 
 
@@ -232,7 +144,14 @@ class Homescreen extends React.Component {
 
                     >
                         <BottomNavigationAction className="buttonnav" label="Rooms" icon={<RestoreIcon />} />
-                        <BottomNavigationAction className="buttonnav" label="Room Finder" icon={<SearchIcon />} />
+
+                        <Link to="/find">
+                            <BottomNavigationAction className="buttonnav" label="Room Finder" icon={<SearchIcon />} />
+
+                        </Link>
+
+
+
                         <BottomNavigationAction className="buttonnav" label="Settings" icon={<SettingsIcon />} />
                     </BottomNavigation>
                 </div >

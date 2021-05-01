@@ -8,6 +8,8 @@ import Room from "./components/Room-Finder/room"
 import Extend from "./components/Extended-view/extend"
 import Settings from "./components/Settings/Settings"
 import Login from "./components/Login/Login"
+import Find from "./components/Find/Find";
+import Finder from "./components/Finder/Finder";
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,6 +19,7 @@ import {
 import { connect, Provider } from 'react-redux';
 
 import Homescreen from './components/Homescreen/Homescreen';
+import Topic from './components/Topic/Topic';
 import actions from './actions';
 import store from './store';
 import React from 'react';
@@ -25,7 +28,8 @@ import socket from './socket';
 function mapStateToProps(state) {
   const { counter } = state;
   const { users } = state;
-  return { counter, users }
+  const { rooms } = state;
+  return { counter, users, rooms }
 }
 
 
@@ -47,7 +51,18 @@ class App extends React.Component {
   }
 
   async fetchUsers() {
-    const data = await fetch('http://localhost:4000/api/rooms', {
+    const usersData = await fetch('http://localhost:4000/retrieveRoom', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': localStorage.getItem('jwt')
+
+
+      }
+    });
+
+    const roomsData = await fetch('http://localhost:4000/api/rooms', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -59,33 +74,37 @@ class App extends React.Component {
     });
 
     try {
-      const newData = await data.json();
-      console.log(newData)
-      this.setState({ rooms: newData })
-
+      const newData = await usersData.json();
+      const newRoomsData = await roomsData.json();
 
       // Create shallow copy of data
       const newRooms = [...newData];
       console.log(newRooms)
 
+      // Attach a message property to each room
       newRooms.forEach((room) => {
-
         room.messages = [];
-
-
-
       })
-      console.log("new", newRooms)
-      console.log(" proppy", this.props.users)
 
-      if (this.props.users.length < 1) {
-        this.props.dispatch(actions.POPULATE_USERS(newRooms))
+      this.props.dispatch(actions.POPULATE_USERS(newRooms))
 
-      }
-      //this.fetchMessages()
-      //console.log(newData)
-      console.log(newRooms)
-      console.log("Went through here")
+
+      // Filter rooms to participated rooms only
+      const participatedRooms = [];
+
+      newRooms.forEach((room) => {
+        newRoomsData.forEach((partRoom) => {
+          if (room._id === partRoom._id) {
+            participatedRooms.push(room)
+          }
+        })
+      })
+
+      // Update rooms state
+      this.props.dispatch(actions.POPULATE_ROOMS(participatedRooms));
+      console.log("part", this.props.rooms)
+
+
 
       socket.emit('join-rooms', newRooms)
 
@@ -122,21 +141,21 @@ class App extends React.Component {
   componentDidMount() {
     let localStorage = window.localStorage;
     let session = localStorage.getItem("sessionToken");
-    this.setState({ isLoggedIn: true })
-
 
 
     if (session !== 'undefined' && session) {
-      const sessionToken = localStorage.getItem("sessionToken");
-      console.log("why")
-      if (sessionToken) {
-        socket.auth = { sessionToken };
-        socket.connect();
-      }
+      socket.auth = { session };
+      socket.connect();
+      this.setState({ isLoggedIn: true })
+      console.log("Attempting")
+      // Populates the state where all rooms are kept
+      this.fetchUsers();
+      this.fetchSelf();
+
+
     }
 
 
-    this.fetchUsers();
 
 
 
@@ -379,6 +398,17 @@ class App extends React.Component {
           </Route>
           <Route path="/extended-view">
             <Extend></Extend>
+          </Route>
+          <Route path="/find">
+            <Find />
+          </Route>
+
+          <Route path="/finder">
+            <Finder></Finder>
+          </Route>
+
+          <Route path="/topics/edit">
+            <Topic></Topic>
           </Route>
 
 

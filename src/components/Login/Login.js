@@ -15,12 +15,15 @@ import { connect } from "react-redux";
 
 import socket from '../../socket';
 import actions from '../../actions';
+import { TimerSharp } from '@material-ui/icons';
 
 
 function mapStateToProps(state) {
     const { currentUser } = state;
     const { jwt } = state;
-    return { currentUser, jwt }
+    const { rooms } = state;
+    const { users } = state
+    return { currentUser, jwt, rooms, users }
 }
 
 
@@ -52,9 +55,11 @@ class Login extends React.Component {
 
     }
 
-    handleSubmission(event) {
+    async handleSubmission(event) {
         const data = { alias: this.state.email, password: this.state.password };
         console.log(this.state.email, this.state.password)
+
+
 
 
 
@@ -82,41 +87,116 @@ class Login extends React.Component {
 
 
 
-        return postData().then(data => {
-            console.log(data)
-            return data;
+        const resData = await postData();
+
+        if (resData.status === "Success") {
+            this.setState({ isLoggedIn: true, token: resData.jwt });
+            let localStorage = window.localStorage;
+            localStorage.setItem('jwt', resData.jwt)
+
+            this.props.dispatch(actions.SET_JWT(resData));
+
+            const currentUserData = await this.fetchCurrentUser()
+            console.log(currentUserData)
+
+            this.props.dispatch(actions.SET_USER(currentUserData[0]))
+
+
+
+
+
+
+            // Connect to socket.io
+            let alias = this.props.jwt.alias;
+            let session = this.props.jwt.jwt.slice(7);
+            console.log(session, alias)
+            socket.auth = { session, alias }
+            console.log("token", socket.auth.session)
+            //socket.auth = { alias };
+            socket.connect();
+
+            this.fetchUsers()
+
+
+            return { message: "Success" }
+
         }
-        ).then(data => {
-            if (data.status === "Success") {
-                this.setState({ isLoggedIn: true, token: data.jwt });
-                let localStorage = window.localStorage;
-                localStorage.setItem('jwt', data.jwt)
-
-                this.props.dispatch(actions.SET_JWT(data));
+        else {
+            this.setState({ logInError: data })
+            return { message: "Failure" }
+        }
 
 
 
-                // Connect to socket.io
-                let alias = this.props.jwt.alias;
-                let sessionToken = this.props.jwt.jwt.slice(7);
-                console.log(sessionToken, alias)
-                socket.auth = { sessionToken, alias }
-                console.log("token", socket.auth.sessionToken)
-                //socket.auth = { alias };
-                socket.connect();
 
+    }
 
-                return { message: "Success" }
+    async fetchUsers() {
+        const usersData = await fetch('http://localhost:4000/retrieveRoom', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': localStorage.getItem('jwt')
+
 
             }
-            else {
-                this.setState({ logInError: data })
-                return { message: "Failure" }
+        });
+
+        const roomsData = await fetch('http://localhost:4000/api/rooms', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': localStorage.getItem('jwt')
+
+
             }
-        })
+        });
+
+        try {
+            const newData = await usersData.json();
+            const newRoomsData = await roomsData.json();
+
+
+            // Create shallow copy of data
+            const newRooms = [...newData];
+            //console.log(newRooms)
+
+            // Attach a message property to each room
+            newRooms.forEach((room) => {
+                room.messages = [];
+            })
+
+            console.log(newRooms)
+            console.log(newRoomsData)
+
+            this.props.dispatch(actions.POPULATE_USERS(newRooms))
+            //console.log(this.props.users)
+
+            // Filter rooms to participated rooms only
+            const participatedRooms = [];
+
+            newRooms.forEach((room) => {
+                newRoomsData.forEach((partRoom) => {
+                    if (room._id === partRoom._id) {
+                        participatedRooms.push(room)
+                    }
+                })
+            })
+
+            // Update rooms state
+            this.props.dispatch(actions.POPULATE_ROOMS(participatedRooms));
+            console.log("part", this.props.rooms)
 
 
 
+            socket.emit('join-rooms', newRooms)
+
+
+        } catch (error) {
+            console.error(error)
+        }
     }
 
 
@@ -198,12 +278,12 @@ function LoginButton(props) {
     }
 
     return (
-        <Link>
-            <Button variant="contained" color="primary" className="button" onClick={handleLinkClick}>
-                Login
 
-            </Button>
-        </Link>
+        <Button variant="contained" color="primary" className="button" onClick={handleLinkClick}>
+            Login
+
+        </Button>
+
     );
 }
 
