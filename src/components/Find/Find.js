@@ -79,6 +79,7 @@ function Find(props) {
 
 
     // Use Array filter to filter topics
+    console.log(props.currentUser.preferredTopics)
     const topics = newData.filter((topic, index) => props.currentUser.preferredTopics.includes(topic._id));
     newData.forEach((topic, index) => {
       console.log(topic._id,)

@@ -30,6 +30,11 @@ let actions = {
 
     POPULATE_TOPICS: function (topics) {
         return { type: 'POPULATE_TOPICS', payload: topics }
+    },
+
+    POPULATE_ROOMS: function (rooms) {
+        return { type: 'POPULATE_ROOMS', payload: rooms }
+
     }
 }
 

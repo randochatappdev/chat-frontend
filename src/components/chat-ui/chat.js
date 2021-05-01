@@ -40,6 +40,7 @@ function Chat(props) {
     const [messages, setMessages] = useState([]);
     const [userIndex, setIndex] = useState(-1);
     const [hasFetched, setHasFetched] = useState(false);
+    const [backIsClicked, setBackClicked] = useState(false);
     let { id } = useParams();
     let history = useHistory();
 
@@ -74,12 +75,20 @@ function Chat(props) {
 
     })
 
+    useEffect(() => {
+        return function cleanup() {
+            props.dispatch(actions.CHANGE_USER(null))
+
+        }
+    }, [backIsClicked])
+
     function handleTextInputChange(event) {
         setText(event.target.value)
     }
 
     function handleBack(event) {
         history.goBack();
+        setBackClicked(true);
     }
 
     async function fetchMessages() {
