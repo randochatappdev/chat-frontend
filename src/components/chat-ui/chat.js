@@ -4,6 +4,8 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import SettingsIcon from '@material-ui/icons/Settings';
 import CallIcon from '@material-ui/icons/Call';
 import SendIcon from '@material-ui/icons/Send';
+import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
+import Button from '@material-ui/core/Button';
 import './chat.css';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
@@ -17,6 +19,7 @@ import { SettingsInputAntenna } from '@material-ui/icons';
 import { useParams, useHistory } from 'react-router-dom';
 import { DropzoneDialog } from 'material-ui-dropzone';
 import React from "react";
+
 
 const useStyles = makeStyles((theme) => ({
 
@@ -41,6 +44,7 @@ function Chat(props) {
     const [userIndex, setIndex] = useState(-1);
     const [hasFetched, setHasFetched] = useState(false);
     const [backIsClicked, setBackClicked] = useState(false);
+    const [warningMessage, setWarningMessage] = useState(1)
     let { id } = useParams();
     let history = useHistory();
 
@@ -202,6 +206,46 @@ function Chat(props) {
         setText("");
     }
 
+    // Attempts to join room by sending a request to the server. Once server request succeeds, the message box appears
+    async function handleJoin(event) {
+        const body = { _id: id }
+        const response = await fetch('http://localhost:4000/api/room', {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': localStorage.getItem('jwt')
+            },
+            body: JSON.stringify(body)
+        });
+
+        try {
+            let serverResponse = await response.json();
+            console.log("hello", props)
+            console.log(serverResponse)
+            if (serverResponse.status === "Success") {
+                // Add current user to the selected room in state
+                const room = { ...props.selectedUser };
+                room.participants.push(props.currentUser._id);
+                props.dispatch(actions.CHANGE_USER(room))
+
+                // Add room to set of rooms to appear in the homescreen
+                const newRooms = [...props.rooms];
+                newRooms.push(room);
+                props.dispatch(actions.POPULATE_ROOMS(newRooms))
+            } else {
+                // Send a dialog saying join attempt failed
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    // Changes the message in the alert box
+    function handleNo() {
+        setWarningMessage(2)
+    }
+
 
     const classes = useStyles();
     //console.log(props.users)
@@ -246,37 +290,74 @@ function Chat(props) {
 
 
 
+                {props.selectedUser && props.selectedUser.participants.includes(props.currentUser._id)
 
-                < div className="chat-text">
-                    <CallIcon className="call-icons" />
-                    <AttachFileIcon className="attach-icons" onClick={() => setOpen(true)} />
+                    ?
+                    <div>
+                        < div className="chat-text">
+                            <CallIcon className="call-icons" />
+                            <AttachFileIcon className="attach-icons" onClick={() => setOpen(true)} />
 
-                    <form onSubmit={onMessage}>
-                        <TextField className={clsx(classes.textField)} id="outlined-basic" value={textInput} onChange={handleTextInputChange} label="Type your message here" variant="outlined" />
+                            <form onSubmit={onMessage}>
+                                <TextField className={clsx(classes.textField)} id="outlined-basic" value={textInput} onChange={handleTextInputChange} label="Type your message here" variant="outlined" />
 
-                    </form>
+                            </form>
 
-                    <DropzoneDialog
-                        acceptedFiles={['image/*']}
-                        cancelButtonText={"cancel"}
-                        submitButtonText={"submit"}
-                        maxFileSize={5000000}
-                        open={open}
-                        onClose={() => setOpen(false)}
-                        onSave={(files) => {
-                            console.log('Files:', files);
-                            setOpen(false);
-                        }}
-                        showPreviews={true}
-                        showFileNamesInPreview={true}
-                    />
-
-
-
-                    <SendIcon button className="send-icons" onClick={onMessage} />
+                            <DropzoneDialog
+                                acceptedFiles={['image/*']}
+                                cancelButtonText={"cancel"}
+                                submitButtonText={"submit"}
+                                maxFileSize={5000000}
+                                open={open}
+                                onClose={() => setOpen(false)}
+                                onSave={(files) => {
+                                    console.log('Files:', files);
+                                    setOpen(false);
+                                }}
+                                showPreviews={true}
+                                showFileNamesInPreview={true}
+                            />
 
 
-                </ div>
+
+                            <SendIcon button className="send-icons" onClick={onMessage} />
+                        </div>
+                    </div>
+
+                    :
+                    warningMessage === 1
+
+                        ?
+                        <div className="join-room">
+                            <div className="notif-join">
+                                <NotificationsActiveIcon className="notif" />
+                                <p>Do you want to join this room?</p>
+                            </div>
+                            <div className="join-button">
+                                <Button variant="contained" color="secondary" onClick={handleNo}>NO</Button>
+                                <Button className="join" variant="contained" color="primary" onClick={handleJoin}>YES, JOIN</Button>
+                            </div>
+
+                        </div>
+
+                        :
+
+                        <div className="join-room">
+                            <div className="notif-join">
+                                <NotificationsActiveIcon className="notif" />
+                                <p>You will not be able to send messages to this room if you are not a participant.</p>
+                            </div>
+
+
+                        </div>
+
+
+                }
+
+
+
+
+
             </div>
         </div>
 
@@ -287,6 +368,8 @@ function Chat(props) {
 
     )
 }
+
+
 
 
 export default connect(mapStateToProps)(Chat);

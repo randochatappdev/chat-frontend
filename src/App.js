@@ -115,7 +115,7 @@ class App extends React.Component {
 
 
 
-      socket.emit('join-rooms', newRooms)
+      socket.emit('join-rooms', participatedRooms)
 
 
     } catch (error) {

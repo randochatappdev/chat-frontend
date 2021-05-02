@@ -130,28 +130,6 @@ class Homescreen extends React.Component {
                     </div>
 
 
-
-
-                    <BottomNavigation className="nav"
-                        showLabels
-
-                    >
-                        <BottomNavigationAction className="buttonnav" label="Rooms" icon={<RestoreIcon />}
-                            component={Link} to="/home"
-
-                        />
-
-
-                        <BottomNavigationAction className="buttonnav" label="Room Finder" icon={<SearchIcon />}
-                            component={Link} to="/find" />
-
-
-
-
-
-                        <BottomNavigationAction component={Link} to="/settings" className="buttonnav" label="Settings" icon={<SettingsIcon />}
-                        />
-                    </BottomNavigation>
                 </div >
             )
         }
