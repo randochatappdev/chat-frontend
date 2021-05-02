@@ -10,6 +10,8 @@ import Settings from "./components/Settings/Settings"
 import Login from "./components/Login/Login"
 import Find from "./components/Find/Find";
 import Finder from "./components/Finder/Finder";
+import CreateRoom from "./components/CreateRoom/CreateRoom";
+import CreateTopic from './components/CreateTopic/CreateTopic';
 import {
   BrowserRouter as Router,
   Switch,
@@ -373,6 +375,16 @@ class App extends React.Component {
             <Route path="/topics/edit" >
               <Topic className="main-screen"></Topic>
             </Route>
+
+            <Route path="/room/new">
+              <CreateRoom />
+            </Route>
+
+            <Route path="/topics/new">
+              <CreateTopic />
+            </Route>
+
+
 
 
 
