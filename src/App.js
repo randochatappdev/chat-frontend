@@ -12,6 +12,7 @@ import Find from "./components/Find/Find";
 import Finder from "./components/Finder/Finder";
 import CreateRoom from "./components/CreateRoom/CreateRoom";
 import CreateTopic from './components/CreateTopic/CreateTopic';
+import Signup from './components/Signup/Signup';
 import {
   BrowserRouter as Router,
   Switch,
@@ -382,6 +383,10 @@ class App extends React.Component {
 
             <Route path="/topics/new">
               <CreateTopic />
+            </Route>
+
+            <Route path="/register">
+              < Signup />
             </Route>
 
 
