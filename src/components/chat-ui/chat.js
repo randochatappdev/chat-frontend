@@ -13,7 +13,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import { connect } from 'react-redux';
 import socket from '../../socket';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import actions from '../../actions';
 import { SettingsInputAntenna } from '@material-ui/icons';
 import { useParams, useHistory } from 'react-router-dom';
@@ -50,6 +50,8 @@ function Chat(props) {
 
     useEffect(() => {
 
+        scrollToBottom();
+
         //console.log(props.currentUser)
         //console.log("selected", props.selectedUser)
 
@@ -76,7 +78,6 @@ function Chat(props) {
         }
 
 
-
     })
 
     useEffect(() => {
@@ -86,6 +87,11 @@ function Chat(props) {
         }
     }, [backIsClicked])
 
+    useEffect(() => {
+        scrollToBottom();
+        props.dispatch(actions.SET_NAV_VIS(false))
+    }, [])
+
     function handleTextInputChange(event) {
         setText(event.target.value)
     }
@@ -93,6 +99,11 @@ function Chat(props) {
     function handleBack(event) {
         history.goBack();
         setBackClicked(true);
+    }
+
+    const scrollToBottom = () => {
+        messagesEnd.current?.scrollIntoView({ behavior: "smooth" })
+
     }
 
     async function fetchMessages() {
@@ -254,9 +265,11 @@ function Chat(props) {
     //console.log("index", userIndex)
 
     const [open, setOpen] = React.useState(false);
+    const messagesEnd = useRef(null)
+
     return (
 
-        <div>
+        <div className="chat-container">
             <div className="chat-wrapper">
                 <div className="chat-name">
                     <ArrowBackIosIcon className="back-icon" button onClick={handleBack} />
@@ -284,9 +297,12 @@ function Chat(props) {
                                 ? <p className="send" key={index}>{message.content.body}</p>
                                 : <p className="reply" key={index}>{message.content.body}</p>
                         ))}
-
+                        <div ref={messagesEnd}></div>
                     </span>
+
+
                 }
+
 
 
 

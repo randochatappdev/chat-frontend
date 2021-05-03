@@ -57,7 +57,7 @@ function Signup() {
       firstName: values.firstName,
       lastName: values.lastName,
       gender: values.gender,
-      displayPicture: `https://picsum.photos/id/${Math.random() * 1000}/200`
+      displayPicture: `https://picsum.photos/id/${Math.trunc(Math.random() * 1000)}/200`
     }
     const response = await fetch('http://localhost:4000/register', {
       method: 'POST',

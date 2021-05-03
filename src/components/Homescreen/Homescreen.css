@@ -1,26 +1,22 @@
-.container {
-    height: 100%;
+.home-container {
     width: 100%;
     font-family: 'Roboto';
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
     box-sizing: border-box;
     overflow: scroll;
+    padding-top: 3vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .header {
     text-align: center;
-    font-weight: bolder;
+    font-weight: bold;
+    font-family: 'Roboto', 'San Francisco';
 }
 
 .time {
     color: black;
     text-align: right;
-}
-
-.nav{
-    background-color: blue;
 }
 
 .list {

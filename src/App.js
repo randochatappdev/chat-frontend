@@ -41,7 +41,8 @@ function mapStateToProps(state) {
   const { counter } = state;
   const { users } = state;
   const { rooms } = state;
-  return { counter, users, rooms }
+  const { navBeVisible } = state;
+  return { counter, users, rooms, navBeVisible }
 }
 
 
@@ -323,58 +324,58 @@ class App extends React.Component {
 
           <Switch >
 
-            <Route path="/welcome" className="main-screen">
+            <Route path="/welcome">
               <Hello></Hello>
             </Route>
 
-            <Route path="/exit" className="main-screen">
+            <Route path="/exit" >
               <Goodbye></Goodbye>
             </Route>
 
             <Route path="/home" >
-              <Homescreen className="main-screen"></Homescreen>
+              <Homescreen ></Homescreen>
             </Route>
 
             <Route path="/chat/:id" >
-              <Chat className="main-screen"></Chat>
+              <Chat ></Chat>
             </Route>
 
             <Route path="/join" >
-              <Join className="main-screen"></Join>
+              <Join ></Join>
             </Route>
 
             <Route path="/call" >
-              <Call className="main-screen"></Call>
+              <Call ></Call>
             </Route>
 
             <Route path="/end">
-              <End className="main-screen"></End>
+              <End ></End>
             </Route>
 
 
             <Route path="/settings">
-              <Settings className="main-screen"></Settings>
+              <Settings ></Settings>
             </Route>
 
             <Route path="/login">
-              <Login className="main-screen" />
+              <Login />
             </Route>
             <Route path="/room-finder">
-              <Room className="main-screen"></Room>
+              <Room ></Room>
             </Route>
             <Route path="/extended-view" >
-              <Extend className="main-screen"></Extend>
+              <Extend ></Extend>
             </Route>
             <Route path="/find">
-              <Find className="main-screen" />
+              <Find />
             </Route>
 
             <Route path="/finder" >
-              <Finder className="main-screen"></Finder>
+              <Finder ></Finder>
             </Route>
 
             <Route path="/topics/edit" >
-              <Topic className="main-screen"></Topic>
+              <Topic ></Topic>
             </Route>
 
             <Route path="/room/new">
@@ -395,27 +396,29 @@ class App extends React.Component {
 
           </Switch>
 
+          {this.props.navBeVisible &&
+            <BottomNavigation className="nav"
+              showLabels
 
-          <BottomNavigation className="nav"
-            showLabels
+            >
+              <BottomNavigationAction className="buttonnav" label="Rooms" icon={<RestoreIcon />}
+                component={Link} to="/home"
 
-          >
-            <BottomNavigationAction className="buttonnav" label="Rooms" icon={<RestoreIcon />}
-              component={Link} to="/home"
-
-            />
-
-
-            <BottomNavigationAction className="buttonnav" label="Room Finder" icon={<SearchIcon />}
-              component={Link} to="/find" />
+              />
 
 
+              <BottomNavigationAction className="buttonnav" label="Room Finder" icon={<SearchIcon />}
+                component={Link} to="/find" />
 
 
 
-            <BottomNavigationAction component={Link} to="/settings" className="buttonnav" label="Settings" icon={<SettingsIcon />}
-            />
-          </BottomNavigation>
+
+
+              <BottomNavigationAction component={Link} to="/settings" className="buttonnav" label="Settings" icon={<SettingsIcon />}
+              />
+            </BottomNavigation>
+          }
+
         </Router >
       </div>
 

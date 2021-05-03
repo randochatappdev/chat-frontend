@@ -76,6 +76,7 @@ class Homescreen extends React.Component {
 
 
     componentDidMount() {
+        this.props.dispatch(actions.SET_NAV_VIS(true))
     }
 
 
@@ -83,26 +84,22 @@ class Homescreen extends React.Component {
     render() {
         if (this.props.rooms && this.props.rooms.length > 0) {
             return (
-                < div className="container" >
+                < div className="home-container" >
                     <h1 className="header">Rooms</h1>
 
                     <List className="list">
                         {this.props.rooms.map((room) =>
-                            <Link to={"/chat/" + room._id} key={room._id}  >
-                                <ListItem button>
-                                    <ListItemAvatar>
-                                        <Avatar alt={room.name} src={room.groupDisplayPictureLink || "https://picsum.photos/200"} />
-                                    </ListItemAvatar>
-                                    <ListItemtext
-                                        primary={room.name}
-                                        secondary={"Hello"}
-                                        className="chat-preview"
-                                    ></ListItemtext>
-                                    <ListItemtext className="time">09:00</ListItemtext>
-                                </ListItem>
-                            </Link>
-
-
+                            <ListItem button key={room._id} component={Link} to={"/chat/" + room._id}>
+                                <ListItemAvatar>
+                                    <Avatar alt={room.name} src={room.groupDisplayPictureLink || "https://picsum.photos/200"} />
+                                </ListItemAvatar>
+                                <ListItemtext
+                                    primary={room.name}
+                                    secondary={"New messages"}
+                                    className="chat-preview"
+                                ></ListItemtext>
+                                <ListItemtext className="time">09:00</ListItemtext>
+                            </ListItem>
                         )}
 
                     </List>

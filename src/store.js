@@ -109,6 +109,20 @@ function rooms(state, action) {
     }
 }
 
+function navBeVisible(state, action) {
+    if (typeof state === 'undefined') {
+        state = "" // If state is undefined, initialize it with a default value
+    }
+
+    switch (action.type) {
+        case 'SET_NAV_VIS':
+            return action.payload;
+
+        default:
+            return state
+    }
+}
+
 
 
 
@@ -119,7 +133,8 @@ const combinedReducers = combineReducers({
     users,
     selectedUser,
     topics,
-    rooms
+    rooms,
+    navBeVisible
 })
 
 const store = createStore(combinedReducers);

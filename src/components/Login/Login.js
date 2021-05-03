@@ -44,6 +44,10 @@ class Login extends React.Component {
 
     }
 
+    componentDidMount() {
+        this.props.dispatch(actions.SET_NAV_VIS(false));
+    }
+
 
 
 

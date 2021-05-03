@@ -1,11 +1,7 @@
 .app-container {
   height: 100vh;
-  overflow: auto;
+  overflow: scroll;
   display: flex;
   flex-direction: column;
-}
-
-.main-screen {
-  height: 100%;
-  overflow: scroll;
+  justify-content: space-between;
 }

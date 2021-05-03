@@ -35,6 +35,11 @@ let actions = {
     POPULATE_ROOMS: function (rooms) {
         return { type: 'POPULATE_ROOMS', payload: rooms }
 
+    },
+
+    SET_NAV_VIS: function (visibility) {
+        return { type: 'SET_NAV_VIS', payload: visibility }
+
     }
 }
 
