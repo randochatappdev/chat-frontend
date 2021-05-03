@@ -56,6 +56,12 @@ function Find(props) {
     }
   })
 
+  useEffect(() => {
+    props.dispatch(actions.SET_NAV_VIS(true));
+  }, []);
+
+
+
 
 
   const classes = useStyles();
@@ -150,59 +156,58 @@ function Find(props) {
 
   return (
     <div className="find-container">
-      <div>
-        <div className="find-header">
-          <IconButton onClick={handleBack} aria-label="back" size="small" className="back-find">
-            <BackIcon fontSize="large" />
+      <div className="find-header">
+        <IconButton onClick={handleBack} aria-label="back" size="small" className="back-find">
+          <BackIcon fontSize="large" />
 
-          </IconButton>
-          <h1 className="find-title">Find a Room</h1>
-        </div>
-
+        </IconButton>
+        <h1 className="find-title">Find a Room</h1>
+      </div>
 
 
 
+      <div className="quick-actions">
         <h2>QUICK ACTIONS</h2>
         <div>
           <Chip className={classes.root1} avatar={<Avatar>+</Avatar>} label="Create a new room" component={Link} to="/room/new" />
           <Chip className={classes.root1} avatar={<Avatar>+</Avatar>} label="Create a new topic" onClick={handleClick} />
         </div>
-        <div>
-
-
-
-
-          {props.topics &&
-            props.topics.map(topic => (
-              <div key={topic._id}>
-
-                <h3>{topic.name.toUpperCase()}</h3>
-                {console.log(topic)}
-                <List component="nav" aria-label="">
-                  {topic.rooms &&
-
-                    topic.rooms.map(room => (
-                      <ListItem button key={room._id}>
-                        <Link to={"/chat/" + room._id}>
-                          <ListItemAvatar>
-                            <Avatar alt="" src="" />
-                          </ListItemAvatar>
-                          <ListItemText primary={room.name} />
-                        </Link>
-                      </ListItem>
-                    ))
-                  }
-
-
-
-                </List>
-              </div>
-            ))
-
-          }
-
-        </div>
       </div>
+      <div>
+
+
+
+
+        {props.topics &&
+          props.topics.map(topic => (
+            <div key={topic._id}>
+              {topic.rooms && topic.rooms[0] &&
+                <h3>{topic.name.toUpperCase()}</h3>
+
+              }
+              <List component="nav" aria-label="" className="topic-rooms-list">
+                {topic.rooms &&
+
+                  topic.rooms.map(room => (
+                    <ListItem button key={room._id} component={Link} to={"/chat/" + room._id} >
+                      <ListItemAvatar>
+                        <Avatar alt={room.name} src={room.groupDisplayPictureLink} />
+                      </ListItemAvatar>
+                      <ListItemText primary={room.name} />
+                    </ListItem>
+                  ))
+                }
+
+
+
+              </List>
+            </div>
+          ))
+
+        }
+
+      </div>
+
     </div >
   );
 }

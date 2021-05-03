@@ -291,18 +291,24 @@ function Chat(props) {
 
 
                 {
-                    props.selectedUser && userIndex > -1 && props.users[userIndex].messages.length > 0 && props.currentUser &&
-                    < span className="helo">
-                        {props.users[userIndex].messages.map((message, index) => (
-                            //console.log(message.content.body),
-                            //console.log(message.sender, props.currentUser.alias),
+                    props.selectedUser && userIndex > -1 && props.users[userIndex].messages.length > 0 && props.currentUser
+                        ?
+                        < span className="helo">
+                            {props.users[userIndex].messages.map((message, index) => (
+                                //console.log(message.content.body),
+                                //console.log(message.sender, props.currentUser.alias),
 
-                            message.sender == props.currentUser.alias
-                                ? <p className="send" key={index}>{message.content.body}</p>
-                                : <p className="reply" key={index}>{message.content.body}</p>
-                        ))}
-                        <div ref={messagesEnd}></div>
-                    </span>
+                                message.sender == props.currentUser.alias
+                                    ? <p className="send" key={index}>{message.content.body}</p>
+                                    : <p className="reply" key={index}>{message.content.body}</p>
+                            ))}
+                            <div ref={messagesEnd}></div>
+                        </span>
+
+                        :
+                        < span className="helo">
+
+                        </span>
 
 
                 }

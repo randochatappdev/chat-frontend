@@ -4,6 +4,9 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { Avatar } from '@material-ui/core';
+import { useEffect } from 'react';
+import actions from '../../actions';
 
 function mapStateToProps(state) {
     const { currentUser } = state;
@@ -13,32 +16,39 @@ function mapStateToProps(state) {
 
 
 function Settings(props) {
+    useEffect(() => {
+        props.dispatch(actions.SET_NAV_VIS(true))
+    }, [])
+
     return (
         // Show components when currentUser is fetched. Otherwise, render loading screen
 
         props.currentUser
 
             ?
-            <div className="container">
+            <div className="settings-container">
 
-                <h1 className="header">Settings</h1>
-
-                <div className="list">
-                    <h2 className="account">ACCOUNT</h2>
-
-                    <p className="property-header">Name</p>
-                    <p className="property-value">{`${props.currentUser.firstName} ${props.currentUser.lastName}`}</p>
-
-                    <p className="property-header">Alias</p>
-                    <p className="property-value">{props.currentUser.alias}</p>
-
-                    {/*<p className="property-header">Birthday</p>
-                    <p className="property-value">{props.currentUser.</p>*/}
-
-                    <p className="property-header">Gender</p>
-                    <p className="property-value">{props.currentUser.gender}</p>
+                <div className="settings-header">
+                    <Avatar id="settings-avatar" alt={props.currentUser.alias} src={props.currentUser.displayPicture} />
+                    <h1 className="settings-header-text">Settings</h1>
 
                 </div>
+
+
+                <h2 className="account">ACCOUNT</h2>
+
+                <p className="property-header">Name</p>
+                <p className="property-value">{`${props.currentUser.firstName} ${props.currentUser.lastName}`}</p>
+
+                <p className="property-header">Alias</p>
+                <p className="property-value">{props.currentUser.alias}</p>
+
+                {/*<p className="property-header">Birthday</p>
+                    <p className="property-value">{props.currentUser.</p>*/}
+
+                <p className="property-header">Gender</p>
+                <p className="property-value">{props.currentUser.gender}</p>
+
 
                 <Buttons />
 
@@ -49,7 +59,7 @@ function Settings(props) {
             :
             <div className="loading-container">
                 <CircularProgress className="loading" />
-
+                <Buttons />
             </div>
 
     )
@@ -78,7 +88,7 @@ function Buttons(props) {
     }
 
     return (
-        <div className="button">
+        <div className="buttons">
             <Button color="secondary" onClick={handleLogOut}>Logout</Button>
             <Button color="primary" onClick={handleClickTopicPref}>Manage Topic Preferences</Button>
         </div>

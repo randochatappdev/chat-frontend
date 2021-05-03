@@ -119,7 +119,7 @@ class Homescreen extends React.Component {
                     <div className="loading-container">
                         <CircularProgress className="loading" />
 
-                        {this.state.rooms &&
+                        {this.props.rooms &&
                             <p>You have no rooms associated to your account.</p>}
 
 
