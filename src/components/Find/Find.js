@@ -8,12 +8,13 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import BackIcon from '@material-ui/icons/ArrowBackIos'
 import './find.css';
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import actions from '../../actions';
 import { Link } from 'react-router-dom';
-import { history } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -58,6 +59,12 @@ function Find(props) {
 
 
   const classes = useStyles();
+  const history = useHistory();
+
+
+  function handleBack(event) {
+    history.goBack();
+  }
 
 
   async function fetchTopics() {
@@ -145,11 +152,11 @@ function Find(props) {
     <div className="find-container">
       <div>
         <div className="find-header">
-          <IconButton aria-label="back" size="small">
-            <ArrowBack fontSize="large" />
+          <IconButton onClick={handleBack} aria-label="back" size="small" className="back-find">
+            <BackIcon fontSize="large" />
 
           </IconButton>
-          <h1>Find a Room</h1>
+          <h1 className="find-title">Find a Room</h1>
         </div>
 
 

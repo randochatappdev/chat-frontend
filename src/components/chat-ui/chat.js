@@ -6,6 +6,7 @@ import CallIcon from '@material-ui/icons/Call';
 import SendIcon from '@material-ui/icons/Send';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import Button from '@material-ui/core/Button';
+import Avatar from '@material-ui/core/Avatar';
 import './chat.css';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
@@ -273,7 +274,10 @@ function Chat(props) {
             <div className="chat-wrapper">
                 <div className="chat-name">
                     <ArrowBackIosIcon className="back-icon" button onClick={handleBack} />
-                    <AccountCircleIcon className="avatar-icon" />
+                    {props.selectedUser &&
+                        <Avatar className="avatar-icon" alt={props.selectedUser.name} src={props.selectedUser.groupDisplayPictureLink}></Avatar>
+                    }
+
                     {props.selectedUser &&
                         <h2>{props.selectedUser.name}</h2>
 

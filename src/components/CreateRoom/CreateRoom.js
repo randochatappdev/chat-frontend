@@ -154,7 +154,8 @@ function CreateRoom(props) {
             topic: topicChipsArray,
             participants: [props.currentUser._id],
             description: values.description,
-            groupDisplayPictureLink: 'https://picsum.photos/200'
+            groupDisplayPictureLink: `https://picsum.photos/id/${Math.trunc(Math.random() * 1000)}/200`
+
         }
         const response = await fetch('http://localhost:4000/api/room', {
             method: 'POST',
