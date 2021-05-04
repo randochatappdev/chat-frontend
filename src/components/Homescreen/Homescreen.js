@@ -98,7 +98,6 @@ class Homescreen extends React.Component {
                                     secondary={"New messages"}
                                     className="chat-preview"
                                 ></ListItemtext>
-                                <ListItemtext className="time">09:00</ListItemtext>
                             </ListItem>
                         )}
 

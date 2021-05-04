@@ -1,24 +1,28 @@
+.create-room-container {
+    box-sizing: border-box;
+    padding: 3vh 3vh 0 3vh;
+    display: flex;
+    flex-direction: column;
+    gap: 3vh;
+}
+
+form {
+    display: flex;
+    gap: 3vh;
+    margin:0;
+    padding: 0;
+}
+
+.text {
+    width: 100%;
+}
+
 .header {
     text-align: center;
 }
 
-.text {
-    width: 90%;
-    margin: 5vh 0vh;
-    
-}
-
-.form {
-    display: flex;
-    flex-direction: column;
-    gap: 2vh;
-    align-items: center;
-    width: 100%;
-}
-
 .drop {
-    width: 90%;
-    height: 50vh;
+    width: 100%;
     border: dashed;
     cursor: pointer;
     overflow: hidden;
@@ -28,4 +32,9 @@
     border-color: rgba(0, 0, 0, 0.12);
     border-radius: 4px;
     background-color: #fff;
+
+}
+
+.topic-search-cr, .topic-list-cr {
+    width: 100%;
 }

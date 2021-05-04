@@ -9,12 +9,16 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import BackIcon from '@material-ui/icons/ArrowBackIos';
 import { users, topics, rooms, messages } from '../../sample-data';
 import './topic.css';
 import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
 import { connect } from 'react-redux';
 import { useState, useEffect } from 'react';
+import actions from '../../actions';
+import { makeStyles } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 
 function mapStateToProps(state) {
   const { currentUser } = state;
@@ -28,8 +32,26 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    listStyle: 'none',
+    padding: theme.spacing(0.5),
+    margin: 0,
+  },
+  chip: {
+    margin: theme.spacing(0.5),
+  },
+}));
+
 
 function Topic(props) {
+  const history = useHistory();
+  const classes = useStyles();
+
+
   const [topicChipsArray, setChipData] = useState();
   const [allTopics, setAllTopics] = useState();
   const [inputValue, setInputValue] = useState('');
@@ -50,6 +72,10 @@ function Topic(props) {
     setOpen(false);
   };
 
+  function handleBack(event) {
+    history.goBack();
+  }
+
 
 
   useEffect(() => {
@@ -61,6 +87,10 @@ function Topic(props) {
 
     console.log(inputValue)
   })
+
+  useEffect(() => {
+    props.dispatch(actions.SET_NAV_VIS(false))
+  }, [])
 
 
 
@@ -180,18 +210,26 @@ function Topic(props) {
 
   return (
     <div className='containers'>
-      <h1>Rando</h1>
-      <TextField label="serch for topics" variant="outlined" value={inputValue} onChange={handleInputChange} />
+
+      <div className="topic-head">
+        <IconButton onClick={handleBack} aria-label="back" size="small" className="back-find">
+          <BackIcon fontSize="large" />
+
+        </IconButton>
+        <h1 className="topic-header">Topic Preferences</h1>
+      </div>
+
+      <TextField label="Search for topics" variant="outlined" value={inputValue} onChange={handleInputChange} />
       <Paper className='papers' elevation={3}>
         {props.currentUser && topicChipsArray &&
           topicChipsArray.map(topic => (
-            <Chip label={topic.name} onDelete={(e) => handleDelete(e, topic)}>  </Chip>
+            <Chip label={topic.name} onDelete={(e) => handleDelete(e, topic)} className={classes.chip}>  </Chip>
           ))
         }
 
       </Paper>
       <Paper className='papers' elevation={3}>
-        <List>
+        <List className="topic-list">
           {topicsOnResults &&
             topicsOnResults.map((topic) => (
               <ListItem key={topic._id}>
@@ -212,10 +250,10 @@ function Topic(props) {
       </Snackbar>
 
 
-      <Button className="save-pref-button" color="secondary" onClick={handleSavePref}>Secondary</Button>
+      <Button className="save-pref-button" color="secondary" onClick={handleSavePref}>Save Preferences</Button>
 
 
-    </div>
+    </div >
   )
 }
 

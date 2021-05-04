@@ -19,6 +19,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import actions from '../../actions';
 
 import { DropzoneArea } from 'material-ui-dropzone';
 import socket from '../../socket';
@@ -47,6 +48,10 @@ function CreateRoom(props) {
         }
 
     })
+
+    useEffect(() => {
+        props.dispatch(actions.SET_NAV_VIS(false))
+    }, [])
 
 
     const [open, setOpen] = React.useState(false);
@@ -183,43 +188,48 @@ function CreateRoom(props) {
 
 
     return (
-        <div className="container">
+        <div className="create-room-container">
 
             <h1 className="header">Create Room</h1>
 
             <form className="form" noValidate autoComplete="off">
-                <DropzoneArea className="drop" onChange={handleDropChange} filesLimit="1" dropzoneText="Press this area to select Room display picture." useChipsForPreview="true" />
+                {/*<DropzoneArea className="drop" onChange={handleDropChange} filesLimit="1" dropzoneText="Press this area to select Room display picture." useChipsForPreview="true" /> */}
                 <TextField className="text" id="outlined-basic" label="Name" variant="outlined" name="roomName" onChange={handleInputChange} value={values.roomName}></TextField>
                 <TextField className="text" id="outlines-basic" label="Description" variant="outlined" name="description" onChange={handleInputChange} value={values.description}></TextField>
+
+                <TextField label="Search" variant="outlined" value={values.searchInput} onChange={handleInputChange} name="searchInput" className="topic-search-cr" />
+                <Paper className='papers' elevation={3}>
+                    {props.currentUser && topicChipsArray &&
+                        topicChipsArray.map(topic => (
+                            <Chip label={topic.name} onDelete={(e) => handleDelete(e, topic)}>  </Chip>
+                        ))
+                    }
+
+                </Paper>
+                <Paper className='papers' elevation={3} className="topic-list-cr">
+                    <List>
+                        {topicsOnResults &&
+                            topicsOnResults.map((topic) => (
+                                <ListItem key={topic._id}>
+                                    <ListItemText primary={topic.name}></ListItemText>
+                                    <ListItemSecondaryAction>
+                                        <IconButton edge="end" aria-label="add topic">
+                                            <FavoriteIcon onClick={(e) => handleFaveButtonClick(e, topic)} />
+                                        </IconButton>
+                                    </ListItemSecondaryAction>
+                                </ListItem>
+                            ))}
+                    </List>
+                </Paper>
+
                 <Button className="button" onClick={handleClickOpen} variant="contained" color="primary">Create Room</Button>
+
+
 
 
             </form>
 
-            <TextField label="Search" variant="outlined" value={values.searchInput} onChange={handleInputChange} name="searchInput" />
-            <Paper className='papers' elevation={3}>
-                {props.currentUser && topicChipsArray &&
-                    topicChipsArray.map(topic => (
-                        <Chip label={topic.name} onDelete={(e) => handleDelete(e, topic)}>  </Chip>
-                    ))
-                }
 
-            </Paper>
-            <Paper className='papers' elevation={3}>
-                <List>
-                    {topicsOnResults &&
-                        topicsOnResults.map((topic) => (
-                            <ListItem key={topic._id}>
-                                <ListItemText primary={topic.name}></ListItemText>
-                                <ListItemSecondaryAction>
-                                    <IconButton edge="end" aria-label="add topic">
-                                        <FavoriteIcon onClick={(e) => handleFaveButtonClick(e, topic)} />
-                                    </IconButton>
-                                </ListItemSecondaryAction>
-                            </ListItem>
-                        ))}
-                </List>
-            </Paper>
 
 
 

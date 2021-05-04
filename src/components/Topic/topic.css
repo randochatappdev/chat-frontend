@@ -5,12 +5,29 @@ h1{
     text-align: center;
 }
 
+.topic-head {
+    display: flex;
+}
+
 .containers {
-    height: 100vh;
     display: flex;
     flex-direction: column;
-    gap: 5vh;
+    gap: 3vh;
     box-sizing: border-box;
     padding: 0vh 3vw;
+    margin-top: 3vh;
+    font-family: 'Roboto';
+}
+
+.topic-header {
+    font-family: 'Roboto';
+    font-weight: bold;
+}
+
+.topic-list {
+    max-height: 45vh;
+    overflow: scroll;
+    margin-bottom: 0px;
+    padding-bottom: 0px ;
 }
 

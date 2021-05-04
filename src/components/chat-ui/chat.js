@@ -244,7 +244,8 @@ function Chat(props) {
                 // Add room to set of rooms to appear in the homescreen
                 const newRooms = [...props.rooms];
                 newRooms.push(room);
-                props.dispatch(actions.POPULATE_ROOMS(newRooms))
+                props.dispatch(actions.POPULATE_ROOMS(newRooms));
+                socket.emit('join-rooms', [props.selectedUser])
             } else {
                 // Send a dialog saying join attempt failed
             }
