@@ -59,7 +59,7 @@ function Signup() {
       gender: values.gender,
       displayPicture: `https://picsum.photos/id/${Math.trunc(Math.random() * 1000)}/200`
     }
-    const response = await fetch('http://ec2-54-254-216-137.ap-southeast-1.compute.amazonaws.com/register', {
+    const response = await fetch('http://ec2-54-254-216-137.ap-southeast-1.compute.amazonaws.com:4000/register', {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
