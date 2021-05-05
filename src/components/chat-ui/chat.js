@@ -301,7 +301,12 @@ function Chat(props) {
 
                                 message.sender == props.currentUser.alias
                                     ? <p className="send" key={index}>{message.content.body}</p>
-                                    : <p className="reply" key={index}>{message.content.body}</p>
+                                    :
+                                    <span>
+                                        <p className="reply-alias">{message.sender}</p>
+                                        <p className="reply" key={index}>{message.content.body}</p>
+                                    </span>
+
                             ))}
                             <div ref={messagesEnd}></div>
                         </span>
