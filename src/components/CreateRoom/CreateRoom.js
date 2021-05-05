@@ -117,7 +117,7 @@ function CreateRoom(props) {
     };
 
     async function fetchTopics() {
-        const data = await fetch('http://localhost:4000/topics', {
+        const data = await fetch('http://ec2-54-254-216-137.ap-southeast-1.compute.amazonaws.com:4000/topics', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -162,7 +162,7 @@ function CreateRoom(props) {
             groupDisplayPictureLink: `https://picsum.photos/id/${Math.trunc(Math.random() * 1000)}/200`
 
         }
-        const response = await fetch('http://localhost:4000/api/room', {
+        const response = await fetch('http://ec2-54-254-216-137.ap-southeast-1.compute.amazonaws.com:4000/api/room', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {

@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 
-const URL = "http://localhost:4000";
+const URL = "ec2-54-254-216-137.ap-southeast-1.compute.amazonaws.com:4000";
 const socket = io(URL, { autoConnect: false });
 
 socket.onAny((event, ...args) => {

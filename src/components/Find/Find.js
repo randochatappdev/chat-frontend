@@ -75,7 +75,7 @@ function Find(props) {
 
   async function fetchTopics() {
     setFetch(true);
-    const data = await fetch('http://localhost:4000/topics', {
+    const data = await fetch('http://ec2-54-254-216-137.ap-southeast-1.compute.amazonaws.com:4000/topics', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -131,7 +131,7 @@ function Find(props) {
 
   // Returns all rooms from DB
   async function fetchRooms() {
-    const data = await fetch('http://localhost:4000/retrieveRoom', {
+    const data = await fetch('http://ec2-54-254-216-137.ap-southeast-1.compute.amazonaws.com:4000/retrieveRoom', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

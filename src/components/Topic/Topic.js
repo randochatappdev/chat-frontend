@@ -151,7 +151,7 @@ function Topic(props) {
 
 
   async function fetchTopics() {
-    const data = await fetch('http://localhost:4000/topics', {
+    const data = await fetch('http://ec2-54-254-216-137.ap-southeast-1.compute.amazonaws.com:4000/topics', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -179,7 +179,7 @@ function Topic(props) {
   async function handleSavePref() {
 
     const data = { preferredTopics: topicChipsArray }
-    const response = await fetch('http://localhost:4000/api/user/topics', {
+    const response = await fetch('http://ec2-54-254-216-137.ap-southeast-1.compute.amazonaws.com:4000/api/user/topics', {
       method: 'PATCH',
       body: JSON.stringify(data),
       headers: {
