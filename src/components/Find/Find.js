@@ -102,7 +102,10 @@ function Find(props) {
     fetchRooms().then((rooms) => {
       topics.forEach((topic, topicIndex) => {
         rooms.forEach((room, roomIndex) => {
-          topic.rooms = [];
+          if (!topic.rooms) {
+            topic.rooms = [];
+
+          }
           console.log(room.topic)
           console.log(topic._id)
           if (room.topic.includes(topic._id)) {
@@ -114,11 +117,12 @@ function Find(props) {
             topics[topicIndex] = newTopic;
           }
 
-          console.log("final", topics);
-          props.dispatch(actions.POPULATE_TOPICS(topics))
+
 
         })
       })
+      console.log("final", topics);
+      props.dispatch(actions.POPULATE_TOPICS(topics))
 
 
     });
@@ -173,7 +177,8 @@ function Find(props) {
           <Chip className={classes.root1} avatar={<Avatar>+</Avatar>} label="Create a new topic" component={Link} to="/topics/new" />
         </div>
       </div>
-      <div>
+
+      <div className="finder-topic-list">
 
 
 
@@ -181,14 +186,17 @@ function Find(props) {
         {props.topics &&
           props.topics.map(topic => (
             <div key={topic._id}>
-              {topic.rooms && topic.rooms[0] &&
+              {topic.rooms && topic.rooms[0] && topic.rooms.length >= 1 &&
+
                 <h3>{topic.name.toUpperCase()}</h3>
 
               }
-              <List component="nav" aria-label="" className="topic-rooms-list">
+
+              <List component="nav" aria-label="">
                 {topic.rooms &&
 
                   topic.rooms.map(room => (
+                    console.log(room),
                     <ListItem button key={room._id} component={Link} to={"/chat/" + room._id} >
                       <ListItemAvatar>
                         <Avatar alt={room.name} src={room.groupDisplayPictureLink} />
