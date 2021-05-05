@@ -49,14 +49,6 @@
     overflow: scroll;
 }
 .helo .send {
-    background-color: orange;
-    display: table;
-    padding: 10px;
-    border-radius: 10px;
-    margin-right: 150px;
-    margin-left: 0;
-}
-.helo .reply {
     background-color: purple;
     display: table;
     padding: 10px;
@@ -67,14 +59,24 @@
     max-inline-size: 250px;
     margin-top: 3px;
 }
+.helo .reply {
+    background-color: orange;
+    display: table;
+    padding: 10px;
+    border-radius: 10px;
+    margin-right: 150px;
+    margin-left: 0;
+    
+}
 
 .reply-alias {
     padding: 10px;
-    margin-left: auto;
+    margin-right: auto;
     margin-top: 5px;
     margin-bottom: 5px;
-    text-align: right;
-    margin-right: 0;
+    text-align: left;
+    margin-left: 0;
+    padding-left: 0;
     color: rgba(68, 66, 66, 0.432);
     font-size: 0.85em;
 }
