@@ -1,26 +1,10 @@
-h1{
+@import url('https://fonts.googleapis.com/css2?family=Sarabun&family=Tajawal&display=swap');
 
-text-align: left;
-font-family: Sansation Light;
-font-style: normal;
-font-weight: 300;
-font-size: 36px;
-line-height: 21px;
-/* identical to box height, or 58% */
-
-letter-spacing: -0.32px;
-
-color: #000000;
-}
 h2{
 
-    text-align: left;
-font-family: Roboto;
-font-style: normal;
+
 font-weight: normal;
-font-size: 18px;
-line-height: 21px;
-letter-spacing: -0.32px;
+
 
 color: #979797;
 
@@ -33,10 +17,20 @@ color: #979797;
     width: 50%;
     
 }*/
-#outlined-Email
-{
- 
+
+.signup-container {
+    box-sizing: border-box;
+    padding: 5vh 3vw 5vh 3vw;
+    font-family: 'Sarabun';
+    display: flex;
+    flex-direction: column;
+    gap: 3vh;
 }
 
-
+.signup-header {
+    margin: 0;
+    padding: 0;
+    font-family: 'Tajawal';
+    font-weight: lighter ;
+}
 

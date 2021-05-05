@@ -95,15 +95,14 @@ function CreateTopic(props) {
 
 
     return (
-        <div className="container">
+        <div className="create-topic-container">
 
-            <h1 className="header">Create Room</h1>
+            <h1 className="header">Create Topic</h1>
 
             <form className="form" noValidate autoComplete="off">
-                <DropzoneArea className="drop" onChange={handleDropChange} filesLimit="1" dropzoneText="Press this area to select Room display picture." useChipsForPreview="true" />
                 <TextField className="text" id="outlined-basic" label="Name" variant="outlined" name="topicName" onChange={handleInputChange} value={values.roomName}></TextField>
                 <TextField className="text" id="outlines-basic" label="Description" variant="outlined" name="description" onChange={handleInputChange} value={values.description}></TextField>
-                <Button className="button" onClick={handleClickOpen} variant="contained" color="primary">Create Room</Button>
+                <Button className="button" onClick={handleClickOpen} variant="contained" color="primary">Create Topic</Button>
 
 
             </form>
@@ -118,7 +117,7 @@ function CreateTopic(props) {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                <DialogTitle id="alert-dialog-title">{`Create Room room?`}</DialogTitle>
+                <DialogTitle id="alert-dialog-title">{`Create ${values.topicName} topic?`}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
                         Confirming will create a new room with you as the administrator.

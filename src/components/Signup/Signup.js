@@ -86,9 +86,10 @@ function Signup() {
 
 
   return (
-    <form noValidate autoComplete="off">
-      <div className='container'>
-        <h1>rando</h1>
+    <div className="signup-container">
+
+      <form noValidate autoComplete="off" >
+        <h1 className="signup-header">rando</h1>
         <h2>Signup for an account</h2>
 
         <TextField
@@ -152,7 +153,7 @@ function Signup() {
           ))
         </TextField>
 
-        <Button onClick={handleClickOpen}>Register</Button>
+        <Button onClick={handleClickOpen} color="secondary">Register</Button>
 
 
 
@@ -176,8 +177,10 @@ function Signup() {
             <ConfirmButton handleConfirm={handleConfirm} />
           </DialogActions>
         </Dialog>
-      </div>
-    </form>
+
+      </form>
+    </div>
+
   )
 }
 

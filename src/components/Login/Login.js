@@ -233,16 +233,16 @@ class Login extends React.Component {
                     <form autoComplete="off">
 
                         <div className="text-fields">
-                            <TextField id="outlined-basic" label="Email" variant="outlined" className="text-field" name="email" value={this.state.email} onChange={this.handleInputChange} />
+                            <TextField id="outlined-basic" label="Alias" variant="outlined" className="text-field" name="email" value={this.state.email} onChange={this.handleInputChange} />
                             <TextField id="outlined-basic" type="password" label="Password" variant="outlined" className="text-field" name="password" value={this.state.password} onChange={this.handleInputChange} />
                         </div>
 
-                        <div className="buttons">
+                        <div className="login-buttons">
 
                             <LoginButton token={this.state.token} handleSubmission={this.handleSubmission}></LoginButton>
 
                             <p>OR</p>
-                            <Button variant="outlined" color="secondary" className="button">
+                            <Button variant="outlined" color="secondary" className="button" component={Link} to="/register">
                                 Register</Button>
                         </div>
 

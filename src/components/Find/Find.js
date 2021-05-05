@@ -170,7 +170,7 @@ function Find(props) {
         <h2>QUICK ACTIONS</h2>
         <div>
           <Chip className={classes.root1} avatar={<Avatar>+</Avatar>} label="Create a new room" component={Link} to="/room/new" />
-          <Chip className={classes.root1} avatar={<Avatar>+</Avatar>} label="Create a new topic" onClick={handleClick} />
+          <Chip className={classes.root1} avatar={<Avatar>+</Avatar>} label="Create a new topic" component={Link} to="/topics/new" />
         </div>
       </div>
       <div>
