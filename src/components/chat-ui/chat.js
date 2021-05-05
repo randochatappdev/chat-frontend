@@ -94,6 +94,15 @@ function Chat(props) {
         }
     }, [])
 
+    useEffect(() => {
+        if (props.selectedUser && props.selectedUser.messages.length < 1) {
+            //console.log("Now you're in")
+            fetchMessages();
+
+        }
+    }, [props.selectedUser])
+
+
     function handleTextInputChange(event) {
         setText(event.target.value)
     }
@@ -303,9 +312,9 @@ function Chat(props) {
                                 message.sender == props.currentUser.alias
                                     ? <p className="send" key={index}>{message.content.body}</p>
                                     :
-                                    <span>
+                                    <span key={index}>
                                         <p className="reply-alias">{message.sender}</p>
-                                        <p className="reply" key={index}>{message.content.body}</p>
+                                        <p className="reply" >{message.content.body}</p>
                                     </span>
 
                             ))}
