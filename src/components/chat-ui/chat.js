@@ -72,11 +72,7 @@ function Chat(props) {
 
         }
 
-        if (props.selectedUser && !hasFetched) {
-            //console.log("Now you're in")
-            fetchMessages();
 
-        }
 
 
     })
@@ -91,6 +87,11 @@ function Chat(props) {
     useEffect(() => {
         scrollToBottom();
         props.dispatch(actions.SET_NAV_VIS(false))
+        if (props.selectedUser && props.selectedUser.messages.length < 1) {
+            //console.log("Now you're in")
+            fetchMessages();
+
+        }
     }, [])
 
     function handleTextInputChange(event) {
