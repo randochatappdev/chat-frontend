@@ -390,6 +390,12 @@ class App extends React.Component {
               < Signup />
             </Route>
 
+            <Route path="/">
+              {this.state.isLoggedIn
+                ? <Homescreen />
+                : <Login />}
+            </Route>
+
 
 
 
