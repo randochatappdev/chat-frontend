@@ -1,0 +1,3 @@
+MONGODB_PASSWORD = 'Ah%23%21TV6H'
+DB_URI = "mongodb+srv://dbAdmin:Ah%23%21TV6H@cluster0.d1664.mongodb.net/randochatapp?retryWrites=true&w=majority"
+JWT_SECRET = "secret"
