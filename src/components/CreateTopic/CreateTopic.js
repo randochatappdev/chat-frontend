@@ -61,7 +61,7 @@ function CreateTopic(props) {
             name: values.topicName,
             description: values.description
         }
-        const response = await fetch('http://ec2-54-254-216-137.ap-southeast-1.compute.amazonaws.com:4000/api/topic', {
+        const response = await fetch('https://randochatapp.herokuapp.com/api/topic', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {

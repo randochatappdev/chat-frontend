@@ -69,7 +69,7 @@ class Login extends React.Component {
 
         async function postData() {
 
-            const response = await fetch('http://ec2-54-254-216-137.ap-southeast-1.compute.amazonaws.com:4000/login', {
+            const response = await fetch('https://randochatapp.herokuapp.com/login', {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: {
@@ -136,7 +136,7 @@ class Login extends React.Component {
     }
 
     async fetchUsers() {
-        const usersData = await fetch('http://ec2-54-254-216-137.ap-southeast-1.compute.amazonaws.com:4000/retrieveRoom', {
+        const usersData = await fetch('https://randochatapp.herokuapp.com/retrieveRoom', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -147,7 +147,7 @@ class Login extends React.Component {
             }
         });
 
-        const roomsData = await fetch('http://ec2-54-254-216-137.ap-southeast-1.compute.amazonaws.com:4000/api/rooms', {
+        const roomsData = await fetch('https://randochatapp.herokuapp.com/api/rooms', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -206,7 +206,7 @@ class Login extends React.Component {
 
 
     async fetchCurrentUser() {
-        const response = await fetch('http://ec2-54-254-216-137.ap-southeast-1.compute.amazonaws.com:4000/api/user', {
+        const response = await fetch('https://randochatapp.herokuapp.com/api/user', {
             method: 'GET',
             headers: {
                 'Authorization': this.state.token

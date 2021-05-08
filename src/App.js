@@ -64,7 +64,7 @@ class App extends React.Component {
   }
 
   async fetchUsers() {
-    const usersData = await fetch('http://ec2-54-254-216-137.ap-southeast-1.compute.amazonaws.com:4000/retrieveRoom', {
+    const usersData = await fetch('https://randochatapp.herokuapp.com/retrieveRoom', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ class App extends React.Component {
       }
     });
 
-    const roomsData = await fetch('http://ec2-54-254-216-137.ap-southeast-1.compute.amazonaws.com:4000/api/rooms', {
+    const roomsData = await fetch('https://randochatapp.herokuapp.com/api/rooms', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -128,7 +128,7 @@ class App extends React.Component {
   }
 
   async fetchSelf() {
-    const data = await fetch('http://ec2-54-254-216-137.ap-southeast-1.compute.amazonaws.com:4000/api/user', {
+    const data = await fetch('https://randochatapp.herokuapp.com/api/user', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

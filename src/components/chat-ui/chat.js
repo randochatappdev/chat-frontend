@@ -120,7 +120,7 @@ function Chat(props) {
     async function fetchMessages() {
         setHasFetched(true);
         //console.log("id", props.selectedUser._id)
-        const data = await fetch('http://ec2-54-254-216-137.ap-southeast-1.compute.amazonaws.com:4000/api/retrieveMessage/' + props.selectedUser._id, {
+        const data = await fetch('https://randochatapp.herokuapp.com/api/retrieveMessage/' + props.selectedUser._id, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -231,7 +231,7 @@ function Chat(props) {
     // Attempts to join room by sending a request to the server. Once server request succeeds, the message box appears
     async function handleJoin(event) {
         const body = { _id: id }
-        const response = await fetch('http://ec2-54-254-216-137.ap-southeast-1.compute.amazonaws.com:4000/api/room', {
+        const response = await fetch('https://randochatapp.herokuapp.com/api/room', {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
