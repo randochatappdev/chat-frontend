@@ -1,0 +1,7 @@
+.app-container {
+  height: 100vh;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

@@ -1,0 +1,40 @@
+.create-room-container {
+    box-sizing: border-box;
+    padding: 3vh 3vh 0 3vh;
+    display: flex;
+    flex-direction: column;
+    gap: 3vh;
+}
+
+form {
+    display: flex;
+    gap: 3vh;
+    margin:0;
+    padding: 0;
+}
+
+.text {
+    width: 100%;
+}
+
+.header {
+    text-align: center;
+}
+
+.drop {
+    width: 100%;
+    border: dashed;
+    cursor: pointer;
+    overflow: hidden;
+    position: inherit;
+    box-sizing: content-box;
+    min-height: 20px;
+    border-color: rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+    background-color: #fff;
+
+}
+
+.topic-search-cr, .topic-list-cr {
+    width: 100%;
+}

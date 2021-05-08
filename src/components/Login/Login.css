@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Sarabun&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tajawal&display=swap');
+
+
+body {
+    font-family: 'Sarabun', sans-serif;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+    
+}
+
+.login-container {
+    box-sizing: border-box;
+    padding: 15vh 0vh;
+    height: 100vh;
+    width: 100%;
+    text-align: center;
+    border: solid 1px black;
+}
+
+.text-fields {
+    display: flex;
+    height: 30vh;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+form > div {
+    width: 80%
+}
+
+.button {
+    width: 50%;
+}
+
+.logo {
+    font-family: 'Tajawal';
+    font-size: 3em;
+    margin: 0;
+}

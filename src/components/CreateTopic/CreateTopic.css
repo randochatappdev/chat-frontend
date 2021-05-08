@@ -1,0 +1,7 @@
+.create-topic-container {
+    box-sizing: border-box;
+    padding: 3vh 3vh 0 3vh;
+    display: flex;
+    flex-direction: column;
+    gap: 3vh;
+}

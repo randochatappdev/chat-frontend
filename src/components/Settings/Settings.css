@@ -1,0 +1,48 @@
+.settings-container {
+    box-sizing: border-box;
+    margin-top: 3vh;
+    padding: 0 5vw;
+    font-family: 'Roboto'
+
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.settings-header {
+    display: flex;
+    gap: 15vw;
+    align-items: center;
+    margin-bottom: 8vh;
+
+}
+
+#settings-avatar {
+    width: 40px;
+    height: 40px;
+}
+
+.settings-header-text {
+    text-align: center;
+    font-family: 'Roboto';
+    font-weight: bold;
+}
+
+.account {
+    color: gray;
+    font-size: 1em;
+    margin-bottom: 7vh;
+    font-size: 1.1em;
+}
+
+.property-header {
+    color: gray;
+    font-size: 0.9em;
+}
+
+.property-value {
+    margin-bottom: 5vh;
+}
