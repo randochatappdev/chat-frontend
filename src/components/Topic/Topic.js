@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import BackIcon from '@material-ui/icons/ArrowBackIos';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { users, topics, rooms, messages } from '../../sample-data';
 import './topic.css';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -85,7 +86,6 @@ function Topic(props) {
 
     }
 
-    console.log(inputValue)
   })
 
   useEffect(() => {
@@ -98,7 +98,6 @@ function Topic(props) {
   // Change search results based on search query input
   function filterTopicsOnSearch(value) {
     if (!value || value === '' || value === ' ' || value.length == 0) {
-      console.log('is empty ')
       if (allTopics)
         setResults(allTopics)
     } else {
@@ -144,7 +143,6 @@ function Topic(props) {
   // Search query change handler
   async function handleInputChange(event) {
     setInputValue(event.target.value);
-    console.log(event.target.value)
     filterTopicsOnSearch(event.target.value);
   }
 
@@ -199,7 +197,6 @@ function Topic(props) {
       }
 
     } catch (error) {
-      console.log(error)
     }
 
   }
@@ -220,37 +217,56 @@ function Topic(props) {
       </div>
 
       <TextField label="Search for topics" variant="outlined" value={inputValue} onChange={handleInputChange} />
-      <Paper className='papers' elevation={3}>
-        {props.currentUser && topicChipsArray &&
-          topicChipsArray.map(topic => (
-            <Chip label={topic.name} onDelete={(e) => handleDelete(e, topic)} className={classes.chip}>  </Chip>
-          ))
-        }
 
-      </Paper>
-      <Paper className='papers' elevation={3}>
-        <List className="topic-list">
-          {topicsOnResults &&
-            topicsOnResults.map((topic) => (
-              <ListItem key={topic._id}>
-                <ListItemText primary={topic.name}></ListItemText>
-                <ListItemSecondaryAction>
-                  <IconButton edge="end" aria-label="add topic">
-                    <FavoriteIcon onClick={(e) => handleFaveButtonClick(e, topic)} />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-            ))}
-        </List>
-      </Paper>
+
+      {props.currentUser && topicChipsArray && topicsOnResults ?
+
+        <div className="topic-conts">
+          <Paper className='papers' elevation={3}>
+            {props.currentUser && topicChipsArray &&
+              topicChipsArray.map(topic => (
+                <Chip label={topic.name} onDelete={(e) => handleDelete(e, topic)} className={classes.chip} key={topic._id}>  </Chip>
+              ))
+            }
+
+          </Paper>
+
+          <Paper className='papers' elevation={3}>
+            <List className="topic-list">
+              {topicsOnResults &&
+                topicsOnResults.map((topic) => (
+                  <ListItem key={topic._id}>
+                    <ListItemText primary={topic.name}></ListItemText>
+                    <ListItemSecondaryAction>
+                      <IconButton edge="end" aria-label="add topic" onClick={(e) => handleFaveButtonClick(e, topic)} >
+                        <FavoriteIcon />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                ))}
+            </List>
+          </Paper>
+        </div>
+
+        :
+        <div className="loading-container">
+          <CircularProgress className="loading" />
+
+        </div>
+
+
+      }
+
+
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success">
           Your preferences are saved.
         </Alert>
       </Snackbar>
 
-
-      <Button className="save-pref-button" color="secondary" onClick={handleSavePref}>Save Preferences</Button>
+      {props.currentUser && topicChipsArray && topicsOnResults &&
+        <Button className="save-pref-button" color="secondary" onClick={handleSavePref}>Save Preferences</Button>
+      }
 
 
     </div >

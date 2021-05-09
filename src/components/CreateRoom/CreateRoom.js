@@ -23,6 +23,7 @@ import actions from '../../actions';
 
 import { DropzoneArea } from 'material-ui-dropzone';
 import socket from '../../socket';
+import { CircularProgress } from '@material-ui/core';
 
 function mapStateToProps(state) {
     const { currentUser } = state;
@@ -208,7 +209,7 @@ function CreateRoom(props) {
                 </Paper>
                 <Paper className='papers' elevation={3} className="topic-list-cr">
                     <List>
-                        {topicsOnResults &&
+                        {topicsOnResults ?
                             topicsOnResults.map((topic) => (
                                 <ListItem key={topic._id}>
                                     <ListItemText primary={topic.name}></ListItemText>
@@ -218,7 +219,13 @@ function CreateRoom(props) {
                                         </IconButton>
                                     </ListItemSecondaryAction>
                                 </ListItem>
-                            ))}
+                            ))
+
+                            :
+                            <div className="loading-container">
+                                <CircularProgress className="loading" />
+                            </div>
+                        }
                     </List>
                 </Paper>
 

@@ -8,7 +8,8 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import BackIcon from '@material-ui/icons/ArrowBackIos'
+import BackIcon from '@material-ui/icons/ArrowBackIos';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import './find.css';
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
@@ -47,9 +48,6 @@ function Find(props) {
   const [isFetched, setFetch] = useState(false);
 
   useEffect(() => {
-    console.log(props.currentUser)
-    console.log(props.currentUser.preferredTopics)
-    console.log(props.topics)
 
     if (props.currentUser && !isFetched) {
       fetchTopics();
@@ -87,17 +85,9 @@ function Find(props) {
     });
 
     const newData = await data.json();
-    console.log(newData)
-
-
 
     // Use Array filter to filter topics
-    console.log(props.currentUser.preferredTopics)
     const topics = newData.filter((topic, index) => props.currentUser.preferredTopics.includes(topic._id));
-    newData.forEach((topic, index) => {
-      console.log(topic._id,)
-    })
-    console.log("prefinal", topics)
 
     fetchRooms().then((rooms) => {
       topics.forEach((topic, topicIndex) => {
@@ -106,14 +96,10 @@ function Find(props) {
             topic.rooms = [];
 
           }
-          console.log(room.topic)
-          console.log(topic._id)
+
           if (room.topic.includes(topic._id)) {
-            console.log("Wow")
-            console.log(room)
             let newTopic = { ...topic }
             newTopic.rooms.push(room);
-            console.log(newTopic)
             topics[topicIndex] = newTopic;
           }
 
@@ -121,7 +107,6 @@ function Find(props) {
 
         })
       })
-      console.log("final", topics);
       props.dispatch(actions.POPULATE_TOPICS(topics))
 
 
@@ -143,7 +128,6 @@ function Find(props) {
     });
 
     const newData = await data.json();
-    console.log(newData)
     return newData;
 
   }
@@ -183,7 +167,9 @@ function Find(props) {
 
 
 
-        {props.topics &&
+        {props.topics
+
+          ?
           props.topics.map(topic => (
             <div key={topic._id}>
               {topic.rooms && topic.rooms[0] && topic.rooms.length >= 1 &&
@@ -196,7 +182,6 @@ function Find(props) {
                 {topic.rooms &&
 
                   topic.rooms.map(room => (
-                    console.log(room),
                     <ListItem button key={room._id} component={Link} to={"/chat/" + room._id} >
                       <ListItemAvatar>
                         <Avatar alt={room.name} src={room.groupDisplayPictureLink} />
@@ -211,6 +196,18 @@ function Find(props) {
               </List>
             </div>
           ))
+
+          :
+
+          <div className="loading-container">
+            <CircularProgress className="loading" />
+
+            {props.topics &&
+              <p>You have no rooms associated to your account.</p>}
+
+
+
+          </div>
 
         }
 

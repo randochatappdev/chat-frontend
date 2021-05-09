@@ -101,3 +101,27 @@
     font-size: 1.5em;
     cursor: pointer;
 }
+
+
+.join-room {
+    margin-top: auto;
+    background-color: purple;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    color: white;
+    box-sizing: border-box;
+    padding: 2vh;
+}
+.notif-join {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.join-button {
+    text-align: center;
+    margin: 15px 0 35px;
+}
+.join-button .join {
+    margin-left: 25px;
+}

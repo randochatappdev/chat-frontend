@@ -20,6 +20,7 @@ import { SettingsInputAntenna } from '@material-ui/icons';
 import { useParams, useHistory } from 'react-router-dom';
 import { DropzoneDialog } from 'material-ui-dropzone';
 import React from "react";
+import { CircularProgress } from '@material-ui/core';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -323,7 +324,9 @@ function Chat(props) {
 
                         :
                         < span className="helo">
-
+                            <div className="loading-container">
+                                <CircularProgress className="loading" />
+                            </div>
                         </span>
 
 

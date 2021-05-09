@@ -9,6 +9,12 @@ h1{
     display: flex;
 }
 
+.topic-conts {
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+}
+
 .containers {
     display: flex;
     flex-direction: column;

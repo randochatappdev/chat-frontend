@@ -112,7 +112,7 @@ class Homescreen extends React.Component {
         } else {
             return (
 
-                < div className="container" >
+                < div className="home-container" >
                     <h1 className="header">Rooms</h1>
 
                     <div className="loading-container">

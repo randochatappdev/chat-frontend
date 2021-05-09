@@ -67,26 +67,7 @@ body {
 }
 
 /* ********************************** Bottom function ************************************************* */
-.join-room {
-    margin-top: auto;
-    background-color: lightslategrey;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    color: white;
-}
-.notif-join {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
-.join-button {
-    text-align: center;
-    margin: 15px 0 35px;
-}
-.join-button .join {
-    margin-left: 25px;
-}
+
 
 /* ************************************ @Media Screen 768px *********************************************** */
 @media only screen and (min-width: 768px) {

@@ -93,7 +93,6 @@ class App extends React.Component {
 
       // Create shallow copy of data
       const newRooms = [...newData];
-      console.log(newRooms)
 
       // Attach a message property to each room
       newRooms.forEach((room) => {
@@ -116,15 +115,11 @@ class App extends React.Component {
 
       // Update rooms state
       this.props.dispatch(actions.POPULATE_ROOMS(participatedRooms));
-      console.log("part", this.props.rooms)
-
-
 
       socket.emit('join-rooms', participatedRooms)
 
 
     } catch (error) {
-      console.error(error)
     }
   }
 
@@ -142,11 +137,9 @@ class App extends React.Component {
 
     try {
       const newData = await data.json();
-      console.log(newData)
       this.props.dispatch(actions.SET_USER(newData[0]))
 
     } catch (error) {
-      console.error(error)
     }
   }
 
@@ -161,7 +154,6 @@ class App extends React.Component {
       socket.auth = { session };
       socket.connect();
       this.setState({ isLoggedIn: true })
-      console.log("Attempting")
       // Populates the state where all rooms are kept
       this.fetchUsers();
       this.fetchSelf();
@@ -186,8 +178,6 @@ class App extends React.Component {
       socket.userID = userID;
       socket.alias = alias;
 
-      console.log(userID)
-      console.log(socket.userID)
     })
 
     /*socket.on("users", (users) => {
@@ -214,29 +204,15 @@ class App extends React.Component {
 
 
 
-
-
-
-
-
-
-    socket.on("user connected", (user) => {
-      console.log(user)
-      //this.props.dispatch(actions.PUSH_USER(user));
-    });
-
     socket.on("private message", ({ content, from }) => {
       this.setState({ nyeam: "yum" });
       const newUsers = [...this.props.users];
-      console.log(newUsers)
       for (let i = 0; i < this.props.users.length; i++) {
 
         const user = newUsers[i];
         if (!user.messages) {
-          console.log("Empty lol")
           user.messages = []
         }
-        console.log(typeof user.messages)
         if (user.userID === from) {
           user.messages.push({
             content,
@@ -245,14 +221,12 @@ class App extends React.Component {
           if (user !== this.selectedUser) {
             user.hasNewMessages = true;
           }
-          console.log(user)
 
           break;
         }
       }
 
       this.props.dispatch(actions.POPULATE_USERS(newUsers))
-      console.log(this.props.users)
     });
 
     socket.on("room message", ({ content, from, room }) => {
@@ -260,7 +234,6 @@ class App extends React.Component {
       const findRoom = (roome) => roome._id === room;
       const newRoomIndex = newRooms.findIndex(findRoom);
       const newRoom = newRooms.find(roome => roome._id === room);
-      console.log(newRoom)
       //console.log(newUser)
       newRoom.messages.push({ sender: from, content: { contentType: "String", body: content } })
       newRooms[newRoomIndex] = newRoom;
@@ -294,7 +267,6 @@ class App extends React.Component {
       });
       this.props.dispatch(actions.POPULATE_USERS(usersCopy))
       */
-      console.log("Oh noe")
       socket.connect()
 
 
