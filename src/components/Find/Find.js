@@ -83,7 +83,7 @@ function Find(props) {
 
       },
     });
-
+    console.log(props.currentUser.preferredTopics)
     const newData = await data.json();
 
     // Use Array filter to filter topics

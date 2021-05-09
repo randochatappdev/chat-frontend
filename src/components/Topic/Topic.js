@@ -74,7 +74,9 @@ function Topic(props) {
   };
 
   function handleBack(event) {
+    window.location.reload();
     history.goBack();
+
   }
 
 
@@ -191,6 +193,17 @@ function Topic(props) {
     try {
       let serverResponse = await response.json();
       setSavePrefStatus(serverResponse.status)
+
+      // Modify topic preferences in state
+      const newUser = { ...props.currentUser };
+      const preferences = topicChipsArray.map((topic) => topic._id)
+      newUser.topicPreferences = preferences;
+      console.log(newUser.topicPreferences)
+      // FIGURE A WAY TO UPDATE THIS STATE -> THIS DOESN'T WORK TO UPDATE STATE
+      props.dispatch(actions.SET_USER(newUser));
+
+
+
       if (serverResponse.status === "Success") {
         handleClick();
 
