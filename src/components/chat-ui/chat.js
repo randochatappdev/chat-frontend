@@ -340,11 +340,12 @@ function Chat(props) {
                     ?
                     <div>
                         < div className="chat-text">
-                            <CallIcon className="call-icons" />
+                            {/*<CallIcon className="call-icons" />
                             <AttachFileIcon className="attach-icons" onClick={() => setOpen(true)} />
+                */}
 
                             <form onSubmit={onMessage}>
-                                <TextField className={clsx(classes.textField)} id="outlined-basic" value={textInput} onChange={handleTextInputChange} label="Type your message here" variant="outlined" />
+                                <TextField className={clsx(classes.textField)} id="outlined-basic" value={textInput} onChange={handleTextInputChange} label="Type your message here" variant="outlined" autoComplete="false" />
 
                             </form>
 

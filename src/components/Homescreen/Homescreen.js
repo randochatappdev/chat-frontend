@@ -53,7 +53,6 @@ class Homescreen extends React.Component {
             props: props
 
         }
-        console.log(this.props.users)
 
 
 
