@@ -294,7 +294,6 @@ function Chat(props) {
                         <h2>{props.selectedUser.name}</h2>
 
                     }
-                    <SettingsIcon className="setting-icon" />
                 </div>
 
 
