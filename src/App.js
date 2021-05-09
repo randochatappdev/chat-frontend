@@ -36,6 +36,7 @@ import actions from './actions';
 import store from './store';
 import React from 'react';
 import socket from './socket';
+import { Container } from '@material-ui/core';
 
 function mapStateToProps(state) {
   const { counter } = state;
@@ -320,17 +321,14 @@ class App extends React.Component {
 
     return (
       <div className="app-container">
+
+        <div className="desktop-warning">
+          <p>Rando Chat App is not yet optimized for larger screens at the moment. Please use a phone or a tablet to access this website.</p>
+        </div>
+
         <Router>
 
-          <Switch >
-
-            <Route path="/welcome">
-              <Hello></Hello>
-            </Route>
-
-            <Route path="/exit" >
-              <Goodbye></Goodbye>
-            </Route>
+          <Switch>
 
             <Route path="/home" >
               <Homescreen ></Homescreen>
@@ -338,18 +336,6 @@ class App extends React.Component {
 
             <Route path="/chat/:id" >
               <Chat ></Chat>
-            </Route>
-
-            <Route path="/join" >
-              <Join ></Join>
-            </Route>
-
-            <Route path="/call" >
-              <Call ></Call>
-            </Route>
-
-            <Route path="/end">
-              <End ></End>
             </Route>
 
 
