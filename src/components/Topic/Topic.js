@@ -74,7 +74,6 @@ function Topic(props) {
   };
 
   function handleBack(event) {
-    window.location.reload();
     history.goBack();
 
   }
@@ -206,6 +205,8 @@ function Topic(props) {
 
       if (serverResponse.status === "Success") {
         handleClick();
+        window.location.reload();
+
 
       }
 
